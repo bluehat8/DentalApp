@@ -20,6 +20,7 @@ namespace DentalApp.Controllers
 
             Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
             return View(u);
+
         }
 
         public async Task<IActionResult> signOut()
