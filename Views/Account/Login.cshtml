@@ -1,0 +1,94 @@
+﻿@using DentalApp.Models
+
+@model Usuario
+
+<style>
+    body {
+        background-color: #171a21;
+        /* background-image: url('https://images.pexels.com/photos/1809644/pexels-photo-1809644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;*/
+    }
+
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Esto ajustará el alto del contenedor al 100% del viewport */
+        width: 100%;
+    }
+
+    /* main {
+
+            width: 60%;
+        }*/
+
+    .border {
+        border-color: #282c37 !important;
+    }
+
+
+    label {
+        color: #c5c7cd;
+    }
+
+    .form-control {
+        background-color: #282c37;
+        color: #c5c7cd;
+    }
+
+        .form-control:focus,
+        label:focus {
+            color: #c5c7cd;
+            background-color: #282c37;
+            border-color: #282c37;
+        }
+
+    .checkbox label input[type="checkbox"] {
+        background-color: #282c37;
+    }
+
+        .checkbox label input[type="checkbox"]:checked:before {
+            color: #282c37;
+            background-color: #c5c7cd;
+        }
+
+    .btn-primary {
+        background-color: #2f8ef7;
+        border-color: #2f8ef7;
+    }
+
+        .btn-primary:hover {
+            background-color: #1c5ca9;
+            border-color: #1c5ca9;
+        }
+
+    .alert-danger {
+        color: #ff3d3d;
+    }
+
+</style>
+
+
+<div class="form-container mb-5">
+
+    <form method="post" asp-action="Login" class="p-5 border rounded" asp-controller="Account">
+        <h1 class="h3 mb-3 text-center" style="color:whitesmoke">Inicio de sesión</h1>
+        <div class="form-floating my-3">
+            <input type="text" class="form-control" required asp-for="Username" />
+            <label for="UserName">Username</label>
+        </div>
+        <div class="form-floating my-3">
+            <input type="password" class="form-control" required asp-for="Contraseña" />
+            <label for="Password">Password</label>
+        </div>
+        <div class=" checkbox mb-3">
+            <label>
+                <input type="checkbox" asp-for="keepActive" /> Recordar sesión
+            </label>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary w-100 my-3">Ingresar</button>
+        <label class="alert-danger">@ViewBag.Error</label>
+    </form>
+
+</div>

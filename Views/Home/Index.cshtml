@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <!-- Banner -->
+    <div class="jumbotron jumbotron-fluid text-white bg-dark py-5 position-relative mb-5" style="background-image: url('@Url.Content("~/images/Portada.jpg")'); background-size: cover; background-position: center; height: 60vh; display: flex; align-items: center;">
+        <div class="position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); top: 0; left: 0;"></div>
+        <div class="container text-left position-relative">
+            <h1 class="display-4">Bienvenido</h1>
+            <p class="lead">Nuestro objetivo es su dalud bucodental </p>
+            <a class="btn btn-primary w-auto" href="#" role="button">Solicitar Cita</a>
+    </div>
+    </div>
+
+    <!-- Que hacemos -->
+
+    <div class="container custom-margin-top mb-5">
+        <div class="row">
+            <div class="col-md-6">
+            <img src="@Url.Content("~/images/quehacemos.webp")" alt="Imagen" class="img-fluid">
+            </div>
+
+            <div class="col-md-6">
+            <h2 class="text-primary font-weight-bold">Qué hacemos</h2>
+                <p>
+                En Dental nos especializamos en ofrecerte los mejores servicios de 
+                odontología general, implantes dentales y cirugía maxilofacial. 
+                Nuestro equipo de profesionales altamente capacitados y con amplia 
+                experiencia se compromete a brindarte una atención personalizada y de alta 
+                calidad para que puedas lucir una sonrisa radiante y saludable.
+            </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Misión, Visión y Valores -->
+    <div class="custom-margin-top mb-5 bg-dark text-white py-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2><i class="fas fa-bullseye"></i> Misión</h2>
+                <p class="text-left">
+                    Nuestra misión es proporcionar atención dental de alta calidad y personalizada
+                    para mejorar la salud bucal y el bienestar general de nuestros pacientes. 
+                    Nos comprometemos a ofrecer un entorno seguro y cómodo, utilizando tecnología 
+                    avanzada y técnicas actualizadas para garantizar resultados óptimos. 
+                    Buscamos establecer relaciones de confianza a largo plazo con nuestros pacientes, 
+                    brindando un cuidado compasivo y profesional en todas las etapas de su tratamiento dental.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2><i class="far fa-eye"></i> Visión</h2>
+                <p class="text-left">
+                    Nuestra visión es convertirnos en la clínica dental líder en nuestra comunidad,
+                    reconocida por nuestra excelencia en el cuidado dental y el servicio al cliente. 
+                    Nos esforzamos por ser innovadores y estar a la vanguardia de los avances en odontología, 
+                    siempre enfocados en mejorar la experiencia del paciente y lograr resultados 
+                    sobresalientes. Buscamos ser un referente en educación y promoción de la salud 
+                    bucal, fomentando hábitos de higiene dental adecuados en nuestra comunidad.</p>
+                </div>
+                <div class="col-md-4">
+                    <h2><i class="fas fa-hand-holding-heart"></i> Valores</h2>
+                <p class="text-left">
+                    Calidad: Nos comprometemos con la excelencia en todo lo que hacemos, desde el diagnóstico hasta el tratamiento y el seguimiento. Buscamos superar las expectativas de nuestros pacientes proporcionando atención dental de la más alta calidad y utilizando los materiales y técnicas más avanzados.
+
+                    Integridad: Actuamos con honestidad, ética y transparencia en todas nuestras interacciones con los pacientes. Mantenemos la confidencialidad de la información personal y nos esforzamos por construir relaciones basadas en la confianza mutua.
+
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mapa de dirección -->
+    <div class="container-fluid custom-margin-top mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="embed-responsive embed-responsive-16by9" style="height: 400px;">
+                    <iframe class="embed-responsive-item"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.0483148660855!2d-86.25933498505135!3d12.108845036496309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f715589effc1f79%3A0x6c7ced86b4d5293f!2sUniversidad%20Americana%20library%2C%20Managua!5e0!3m2!1ses!2sni!4v1655265753340!5m2!1ses!2sni"
+                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Horario de atención y formulario de consulta rápida -->
+    <div class="container custom-margin-top mb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Horario de Atención</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Día</th>
+                            <th>Horario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lunes</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Martes</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <!-- Agrega más filas para los demás días -->
+                        <tr>
+                            <td>Miércoles</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Jueves</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Viernes</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sábado</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Consulta Rápida</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ingrese su email">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea class="form-control" id="mensaje" rows="7" placeholder="Ingrese su mensaje"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+@* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> *@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

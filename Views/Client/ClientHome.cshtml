@@ -1,0 +1,565 @@
+﻿@model Usuario
+
+@{
+    Layout = null;
+
+    ViewData["Title"] = "Client Dashboard";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>crud dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!----css3---->
+    <link rel="stylesheet" href="~/css/custom.css">
+
+
+    <!--google fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+    <!--google material icon-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+
+    <div class="wrapper">
+
+
+        <div class="body-overlay"></div>
+
+        <!-------------------------sidebar------------>
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="@Url.Content("~/images/usuario.png")" class="img-fluid" />
+                <span>@Model.Nombre</span> 
+                <span>@Model.Apellidos</span> 
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#" id="dashboard-btn" class="dashboard">
+                        <i class="material-icons">dashboard</i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="#homeSubmenu1" id="citas-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">aspect_ratio</i>Citas
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">apps</i><span>Historial Clinico</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">extension</i><span>Pagos</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">extension</i><span>Tratamientos</span>
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">border_color</i><span>Mensajes</span>
+                    </a>
+
+                </li>
+
+
+
+
+            </ul>
+
+
+        </nav>
+
+
+
+
+        <!--------page-content---------------->
+
+        <div id="content">
+
+            <!--top--navbar----design--------->
+
+            <div class="top-navbar">
+                <div class="xp-topbar">
+
+                    <!-- Start XP Row -->
+                    <div class="row">
+                        <!-- Start XP Col -->
+                        <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                            <div class="xp-menubar">
+                                <span class="material-icons text-white">
+                                    signal_cellular_alt
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+                        <!-- Start XP Col -->
+                        <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                            <div class="xp-searchbar">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control"
+                                               placeholder="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit"
+                                                    id="button-addon2">
+                                                GO
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+                        <!-- Start XP Col -->
+                        <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                            <div class="xp-profilebar text-right">
+                                <nav class="navbar p-0">
+                                    <ul class="nav navbar-nav flex-row ml-auto">
+                                        <li class="dropdown nav-item active">
+                                            <a href="#" class="nav-link" data-toggle="dropdown">
+                                                <span class="material-icons">notifications</span>
+                                                <span class="notification">4</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#">You have 5 new messages</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">You're now friend with Mike</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Wish Mary on her birthday!</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">5 warnings in Server Console</a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <span class="material-icons">question_answer</span>
+
+                                            </a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="#" data-toggle="dropdown">
+                                                <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
+                                                <span class="xp-user-live"></span>
+                                            </a>
+                                            <ul class="dropdown-menu small-menu">
+                                                <li>
+                                                    <a href="#" id="editProfileLink">
+                                                        <span class="material-icons">
+                                                            person_outline
+                                                        </span>Profile Settings
+
+                                                    </a>
+                                                </li>
+                                               
+                                                <li>
+                                                    <a asp-area ="" asp-controller="Client" asp-action="signOut">
+                                                 
+                                                        <span class="material-icons">
+                                                            logout
+                                                        </span>Logout
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+
+                                </nav>
+
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+
+                    </div>
+                    <!-- End XP Row -->
+
+                </div>
+                <div class="xp-breadcrumbbar text-center">
+                    <h4 class="page-title">Bienvenido @Model.Nombre @Model.Apellidos</h4>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Booster</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </div>
+
+            </div>
+
+
+           <!------Panel de inicio----->
+
+             <div class="container mt-5 mb-5" id="home-panel">
+              <h2>Próximas citas</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Cita de limpieza</h5>
+                      <p class="card-text">Fecha: 15 de octubre de 2022</p>
+                      <p class="card-text">Hora: 10:00 AM</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Cita de revisión</h5>
+                      <p class="card-text">Fecha: 20 de octubre de 2022</p>
+                      <p class="card-text">Hora: 11:30 AM</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <!--------main-content------------->
+
+            <div class="main-content d-none" id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                                        <h2 class="ml-lg-2">Gestión de Citas</h2>
+                                    </div>
+                                    <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                                        <a href="#addAppointmentModal" class="btn btn-success" data-toggle="modal">
+                                            <i class="material-icons">&#xE147;</i> <span>Solicitar Cita</span>
+                                        </a>
+                                        <a href="#deleteAppointmentModal" class="btn btn-danger" data-toggle="modal">
+                                            <i class="material-icons">&#xE15C;</i> <span>Cancelar Cita</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="custom-checkbox">
+                                                <input type="checkbox" id="selectAll">
+                                                <label for="selectAll"></label>
+                                            </span>
+                                        </th>
+                                        <th>Doctor</th>
+                                        <th>Fecha de Cita</th>
+                                        <th>Estado</th>
+                                        <th>Ubicación</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Ejemplo de cita aprobada -->
+                                    <tr>
+                                        <td>
+                                            <span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                                <label for="checkbox1"></label>
+                                            </span>
+                                        </td>
+                                        <td>Dr. Pérez</td>
+                                        <td>2023-12-01 15:30</td>
+                                        <td>Aprobada</td>
+                                        <td>Clinica XYZ</td>
+                                        <td>
+                                            <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
+                                            </a>
+                                            <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- Ejemplo de cita cancelada -->
+                                    <tr>
+                                        <td>
+                                            <span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox2" name="options[]" value="1">
+                                                <label for="checkbox2"></label>
+                                            </span>
+                                        </td>
+                                        <td>Dr. Rodríguez</td>
+                                        <td>2023-12-02 10:00</td>
+                                        <td>Cancelada</td>
+                                        <td>Clinica ABC</td>
+                                        <td>
+                                            <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
+                                            </a>
+                                            <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- Puedes agregar más filas según sea necesario -->
+                                </tbody>
+                            </table>
+                            <!-- Agrega el resto de tu paginación y otros elementos según sea necesario -->
+                            <div class="clearfix">
+                                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a href="#">Anterior</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Edit Modal HTML -->
+                    <div id="addAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Solicitar Nueva Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input type="datetime-local" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de cita</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Motivo</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-success" value="Solicitar Cita">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit Modal HTML -->
+                    <div id="requestAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Editar Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input type="datetime-local" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de cita</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Motivo</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-info" value="Guardar Cambios">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Delete Modal HTML -->
+                    <div id="deleteAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Cancelar Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de que deseas cancelar esta cita?</p>
+                                        <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-danger" value="Cancelar Cita">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <!---footer---->
+
+
+            </div>
+
+
+            </div>
+
+            <!-- Formulario de edición del perfil -->
+            <div id="edit-profile" class="d-none">
+                <form id="editProfileForm">
+                    <div class="card card-body mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editFirstName" class="form-label">Nombres:</label>
+                                <input type="text" value="@Model.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editLastName" class="form-label">Apellidos:</label>
+                                <input type="text" value="@Model.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editBirthdate" class="form-label">Fecha de nacimiento:</label>
+                                <input type="date" value="@Model.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editEmail" class="form-label">Email:</label>
+                                <input type="email" value="@Model.Correo" class="form-control prof-inputs" id="editEmail" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editPhone" class="form-label">Teléfono:</label>
+                                <input type="tel" value="@Model.Telefono" class="form-control prof-inputs" id="editPhone">
+                            </div>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button id="saveProfileChanges" class="btn btn-primary prof-inputs" type="submit" name="Save">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <footer class="fixed-bottom border-top bg-dark text-white text-center py-3">
+                <div class="container">
+                    &copy; 2023 - DentalApp - <a href="#" class="text-white">Privacy</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+    <!----------html code compleate----------->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".xp-menubar").on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
+            });
+
+            $(".xp-menubar,.body-overlay").on('click', function () {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
+            });
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        document.getElementById('editProfileLink').addEventListener('click', function () {
+
+            document.getElementById('main-content').classList.add('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('edit-profile').classList.remove('d-none');
+        });
+
+        document.getElementById('citas-btn').addEventListener('click', function () {
+            document.getElementById('main-content').classList.remove('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('edit-profile').classList.add('d-none');
+        });
+
+        document.getElementById('citas-btn').addEventListener('click', function () {
+            document.getElementById('main-content').classList.remove('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('edit-profile').classList.add('d-none');
+        });
+
+        document.getElementById('dashboard-btn').addEventListener('click', function () {
+            document.getElementById('main-content').classList.add('d-none');
+            document.getElementById('home-panel').classList.remove('d-none');
+            document.getElementById('edit-profile').classList.add('d-none');
+        });
+    </script>
+
+
+
+
+
+</body>
+
+</html>
+
+
