@@ -8,6 +8,7 @@ using DentalApp.Models;
 using DentalApp.Services;
 using DentalApp.Interfaces;
 using Newtonsoft.Json;
+using DentalApp.Services.User;
 
 namespace DentalApp.Controllers
 {

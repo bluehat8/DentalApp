@@ -2,7 +2,7 @@
 using DentalApp.Models;
 using NuGet.Protocol.Plugins;
 
-namespace DentalApp.Services
+namespace DentalApp.Services.User
 {
     public class LoginService
     {
@@ -22,7 +22,7 @@ namespace DentalApp.Services
             };
 
             var loginResponse = await _apiClient.PostAsync<LoginRequest, ApiResponse<Usuario>>
-                (Constants.apiUrl+Constants.loginEndpoint, loginRequest);
+                (Constants.apiUrl + Constants.loginEndpoint, loginRequest);
 
             var user = loginResponse?.response;
             var message = loginResponse?.message;

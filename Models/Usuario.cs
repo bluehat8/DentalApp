@@ -7,15 +7,15 @@ namespace DentalApp.Models
     {
         public int Id { get; set; }
 
-        public string Username { get; set; } = null!;
+        public string? Username { get; set; } = null!;
 
-        public string Contraseña { get; set; } = null!;
+        public string? Contraseña { get; set; } = null!;
 
-        public int Telefono { get; set; }
+        public string? Telefono { get; set; }
 
         public int Rol { get; set; }
 
-        public string Correo { get; set; } = null!;
+        public string? Correo { get; set; } = null!;
 
         public bool Activo { get; set; }
 
@@ -23,7 +23,7 @@ namespace DentalApp.Models
 
         public string Apellidos { get; set; } = null!;
 
-        public DateTime FechaNacimiento { get; set; }
+        public string? FechaNacimiento { get; set; }
 
         public string Cedula { get; set; } = null!;
 
