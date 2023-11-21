@@ -1,13 +1,13 @@
 ﻿@using DentalApp.Models.View
 
-@model DoctorHomeViewModel
-
+@model AsistenteHomeViewModel
 
 @{
     Layout = null;
 
-    ViewData["Title"] = "Doctor Dashboard";
+    ViewData["Title"] = "Asistente Dashboard";
 }
+
 
 
 <!doctype html>
@@ -191,7 +191,7 @@
                                                 </li>
 
                                                 <li>
-                                                    <a asp-area="" asp-controller="Client" asp-action="signOut">
+                                                    <a asp-area="" asp-controller="Asistente" asp-action="signOut">
 
                                                         <span class="material-icons">
                                                             logout
@@ -291,30 +291,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @* @foreach (var solicitud in Model.SolicitudesCita)
+                                  @*   @foreach (var solicitud in Model.SolicitudesCita)
                                     {
-                                    <tr>
-                                        <td>
-                                            <span class="custom-checkbox">
-                                                <input type="checkbox" id="checkbox@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
-                                                <label for="checkbox@(solicitud.Id)"></label>
-                                            </span>
-                                        </td>
-                                        <td>@solicitud.Id</td>
-                                        <td>@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
-                                        <td>@solicitud.Hora</td>
-                                        <td>@solicitud.Estado</td>
-                                        <td>@solicitud.MotivoCita</td>
+                                        <tr>
+                                            <td>
+                                                <span class="custom-checkbox">
+                                                    <input type="checkbox" id="checkbox@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
+                                                    <label for="checkbox@(solicitud.Id)"></label>
+                                                </span>
+                                            </td>
+                                            <td>@solicitud.Id</td>
+                                            <td>@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@solicitud.Hora</td>
+                                            <td>@solicitud.Estado</td>
+                                            <td>@solicitud.MotivoCita</td>
 
-                                        <td>
-                                            <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
-                                                <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
-                                            </a>
-                                            <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
-                                                <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
+                                                </a>
+                                                <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     } *@
                                 </tbody>
                             </table>
@@ -444,7 +444,7 @@
 
             <!-- Formulario de edición del perfil -->
             <div id="edit-profile" class="d-none">
-                <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Doctor">
+                <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Asistente">
                     <div class="card card-body mb-3">
                         <div class="row">
                             <div class="col-md-6">
@@ -472,12 +472,6 @@
                                 <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono">
                             </div>
                         </div>
-                        <select value = "@Model._Doctor.Especialidad" asp-for="@Model.Usuario.Especialidad">   
-                                @foreach (var item in Model.Especialidades)
-                                {
-                                    <option value="@item.ID">@item.Especialidad1</option>
-                                }
-                        </select>
                         <div class="d-grid mt-3">
                             <button id="saveProfileChanges" class="btn btn-primary prof-inputs" type="submit" name="Save">Save Changes</button>
                         </div>
@@ -545,6 +539,9 @@
             document.getElementById('edit-profile').classList.add('d-none');
         });
     </script>
+
+
+
 
 
 </body>
