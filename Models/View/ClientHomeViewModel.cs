@@ -4,6 +4,7 @@
     {
         public Usuario Usuario { get; set; }
         public List<SolicitudCita> SolicitudesCita { get; set; }
+
     }
 
 }

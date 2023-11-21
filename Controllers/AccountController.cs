@@ -59,9 +59,25 @@ namespace DentalApp.Controllers
                     TempData["Usuario"] = JsonConvert.SerializeObject(response.user);
                     HttpContext.Session.SetString("Usuario", JsonConvert.SerializeObject(response.user));
 
+                    switch (response.user.Rol)
+                    {
+                        case (Int32)Constants.DentalRole.cliente:
+                            return RedirectToAction("ClientHome", "Client");
+
+                        case (Int32)Constants.DentalRole.admin:
+                            return RedirectToAction("AdminHome", "Admin");
+
+                        case (Int32)Constants.DentalRole.asistente:
+                            return RedirectToAction("AsistenteHome", "Asistente");
+
+                        case (Int32)Constants.DentalRole.doctor:
+                            return RedirectToAction("DoctorHome", "Doctor");
+
+                        default:
+                            return RedirectToAction("DefaultAction", "DefaultController");
+                    }
 
 
-                    return RedirectToAction("ClientHome", "Client");
                 }
                 else
                 {
