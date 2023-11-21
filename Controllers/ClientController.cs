@@ -8,12 +8,15 @@ using System.Net.Http;
 using DentalApp.Services.ClientServices;
 using DentalApp.Models.View;
 using DentalApp.Services.User;
+using System.Globalization;
 
 namespace DentalApp.Controllers
 {
     public class ClientController : Controller
     {
         private UserService userService;
+        private ServicioSolicitarCita cita = new ServicioSolicitarCita();
+
 
 
         public ClientController() { 
@@ -40,7 +43,8 @@ namespace DentalApp.Controllers
             var viewModel = new ClientHomeViewModel
             {
                 Usuario = usuarioactual,
-                SolicitudesCita = solicitudCita
+                SolicitudesCita = solicitudCita,
+               // SolicitudCita = new SolicitudCita()
             };
 
             // Devolver el modelo de vista a la vista
@@ -78,6 +82,47 @@ namespace DentalApp.Controllers
             {
                 // Manejo de excepciones
                 ViewData["ErrorMessage"] = $"Error interno del servidor: {ex.Message}";
+                return RedirectToAction("ClientHome", "Client");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SolicitarCita(SolicitudCita solicitudDto)
+        {
+            try
+            {
+                if (TimeSpan.TryParseExact(solicitudDto.Fecha.ToString(), "hh\\:mm", CultureInfo.InvariantCulture, out TimeSpan horaTimeSpan))
+                {
+                    solicitudDto.Hora = horaTimeSpan.ToString();
+                }
+                else
+                {
+                    solicitudDto.Hora = TimeSpan.MinValue.ToString();
+                }
+
+                DateTime fecha = DateTime.ParseExact(
+                  solicitudDto.Fecha.ToString(),
+                  "dd/MM/yyyy HH:mm:ss",
+                  CultureInfo.InvariantCulture); 
+
+                TimeSpan hora = fecha.TimeOfDay;
+                solicitudDto.Hora = hora.ToString(@"hh\:mm");
+
+
+                var usuarioJson = HttpContext.Session.GetString("Usuario");
+                Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+
+                solicitudDto.Userid = u.Id;
+
+                await cita.EnviarSolicitudCita(solicitudDto);
+
+                // Puedes redirigir a una página de éxito o hacer cualquier otra cosa según tus necesidades
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                // Manejar el error de alguna manera, posiblemente mostrar un mensaje de error en la vista
                 return RedirectToAction("ClientHome", "Client");
             }
         }
