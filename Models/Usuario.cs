@@ -35,6 +35,6 @@ namespace DentalApp.Models
         public bool keepActive { get; set; }
 
         [NotMapped]
-        public int  Especialidad{ get; set; }
+        public int  Especialidad { get; set; }
     }
 }
