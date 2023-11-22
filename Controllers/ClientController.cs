@@ -9,6 +9,8 @@ using DentalApp.Services.ClientServices;
 using DentalApp.Models.View;
 using DentalApp.Services.User;
 using System.Globalization;
+using System.Drawing.Printing;
+using System.Reflection;
 
 namespace DentalApp.Controllers
 {
@@ -39,15 +41,30 @@ namespace DentalApp.Controllers
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
             List<SolicitudCita> solicitudCita = await ServicioSolicitarCita.ObtenerSolicitudesCitasPorUsuario(u.Id);
 
-            // Crear el modelo de vista y asignar valores
+            var citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
+
+            int TotalRecords = citasFilter.Count();
+
+            // Calcular número de páginas
+            int TotalPages = (int)Math.Ceiling((decimal)TotalRecords / 7);
+
+            // Aplicar paginación
+            citasFilter = citasFilter
+              .Skip((1 - 1) * 7)
+            .Take(7)
+              .ToList();
+
+            //model.PageNumber = pageNumber;
+
             var viewModel = new ClientHomeViewModel
             {
                 Usuario = usuarioactual,
-                SolicitudesCita = solicitudCita,
-               // SolicitudCita = new SolicitudCita()
+                SolicitudesCita = citasFilter,
+                TotalRecords = TotalRecords, 
+                TotalPages = TotalPages,
+                PageNumber = 1,
             };
 
-            // Devolver el modelo de vista a la vista
             return View(viewModel);
         }
 
@@ -60,13 +77,12 @@ namespace DentalApp.Controllers
         public async Task<IActionResult> ActualizarUsuario(Usuario usuario)
         {
             var usuarioJson = HttpContext.Session.GetString("Usuario");
-            Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+            Usuario? u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
             HttpClient httpClient = await TokenAuthentication.AutenticarConTokenAsync();
             userService = new UserService(new ApiClient(httpClient));
 
             try
             {
-                // Llamada a la función de UsuarioService
                 var mensaje = await userService.ActualizarUsuarioAsync(u.Id, usuario);
 
                 if (mensaje)
@@ -80,7 +96,6 @@ namespace DentalApp.Controllers
             }
             catch (Exception ex)
             {
-                // Manejo de excepciones
                 ViewData["ErrorMessage"] = $"Error interno del servidor: {ex.Message}";
                 return RedirectToAction("ClientHome", "Client");
             }
@@ -116,16 +131,90 @@ namespace DentalApp.Controllers
 
                 await cita.EnviarSolicitudCita(solicitudDto);
 
-                // Puedes redirigir a una página de éxito o hacer cualquier otra cosa según tus necesidades
                 return RedirectToAction("ClientHome", "Client");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                // Manejar el error de alguna manera, posiblemente mostrar un mensaje de error en la vista
                 return RedirectToAction("ClientHome", "Client");
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ActualizarSolicitudCita(SolicitudCita solicitudDto)
+        {
+            try
+            {
+                if (TimeSpan.TryParseExact(solicitudDto.Fecha.ToString(), "hh\\:mm", CultureInfo.InvariantCulture, out TimeSpan horaTimeSpan))
+                {
+                    solicitudDto.Hora = horaTimeSpan.ToString();
+                }
+                else
+                {
+                    solicitudDto.Hora = TimeSpan.MinValue.ToString();
+                }
+
+                DateTime fecha = DateTime.ParseExact(
+                  solicitudDto.Fecha.ToString(),
+                  "dd/MM/yyyy HH:mm:ss",
+                  CultureInfo.InvariantCulture);
+
+                TimeSpan hora = fecha.TimeOfDay;
+                solicitudDto.Hora = hora.ToString(@"hh\:mm");
+
+
+                var usuarioJson = HttpContext.Session.GetString("Usuario");
+                Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+
+                solicitudDto.Userid = u.Id;
+
+                await cita.UpdateSolicitudCita(solicitudDto.Id,solicitudDto);
+
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("ClientHome", "Client");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CancelarSolicitudCita(int id)
+        {
+            try
+            {
+                await cita.CancelarSolicitudCita(id);
+
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("ClientHome", "Client");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CancelarCita([FromForm] int[] ids)
+        {
+            try
+            {
+                foreach (int id in ids)
+                {
+                    await cita.CancelarSolicitudCita(id);
+                }
+
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("ClientHome", "Client");
+            }
+        }
+
 
 
     }

@@ -64,5 +64,43 @@ namespace DentalApp.Services.ClientServices
             }
         }
 
+        public async Task<string> UpdateSolicitudCita(int solicitudId, SolicitudCita solicitud)
+        {
+            var httpClient = new HttpClient();
+
+            var url = Constants.apiUrl+"/api/citas/updateSolicitud/" + solicitudId;
+
+            var response = await httpClient.PutAsJsonAsync(url, solicitud);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return "Solicitud actualizada correctamente";
+            }
+            else
+            {
+                return "Ocurrió un error al actualizar la solicitud";
+            }
+
+        }
+
+        public async Task<string> CancelarSolicitudCita(int solicitudId)
+        {
+            var httpClient = new HttpClient();
+
+            var url = Constants.apiUrl + "/api/citas/cancelarCita/" + solicitudId;
+
+            var response = await httpClient.PutAsJsonAsync(url, solicitudId);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return "Solicitud actualizada correctamente";
+            }
+            else
+            {
+                return "Ocurrió un error al actualizar la solicitud";
+            }
+
+        }
+
     }
 }

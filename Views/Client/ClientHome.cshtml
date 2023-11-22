@@ -268,7 +268,7 @@
                                         <a href="#addAppointmentModal" class="btn btn-success" data-toggle="modal">
                                             <i class="material-icons">&#xE147;</i> <span>Solicitar Cita</span>
                                         </a>
-                                        <a href="#deleteAppointmentModal" class="btn btn-danger" data-toggle="modal">
+                                        <a href="#deleteListAppointmentModal" class="btn btn-danger" data-toggle="modal">
                                             <i class="material-icons">&#xE15C;</i> <span>Cancelar Cita</span>
                                         </a>
                                     </div>
@@ -296,7 +296,7 @@
                                         <tr>
                                             <td>
                                                 <span class="custom-checkbox">
-                                                    <input type="checkbox" id="checkbox@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
+                                                    <input type="checkbox" id="checkboxSolicitud@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
                                                     <label for="checkbox@(solicitud.Id)"></label>
                                                 </span>
                                             </td>
@@ -307,11 +307,18 @@
                                             <td>@solicitud.MotivoCita</td>
 
                                             <td>
-                                                <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
-                                                    <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
+                                                <a href="#editAppointmentModal" class="edit" data-toggle="modal"
+                                                   data-id="@solicitud.Id"
+                                                   data-fecha="@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")"
+                                                   data-hora="@solicitud.Hora"
+                                                   data-estado="@solicitud.Estado"
+                                                   data-motivo="@solicitud.MotivoCita"
+                                                   data-tipocita="@solicitud.TipoCita">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i>
                                                 </a>
-                                                <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
-                                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                <a href="#deleteAppointmentModal" class="delete" data-toggle="modal"
+                                                   data-id="@solicitud.Id">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -320,16 +327,17 @@
                             </table>
                             <!-- Agrega el resto de tu paginación y otros elementos según sea necesario -->
                             <div class="clearfix">
-                                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                                <div class="hint-text">Mostrando <b>7</b> de <b>@Model.TotalRecords</b> entradas</div>
+                             
+
                                 <ul class="pagination">
-                                    <li class="page-item disabled"><a href="#">Anterior</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
+                                    @for (int i = 1; i <= Model.TotalPages; i++)
+                                    {
+                                        <li class="page-item"><a href="@Url.Action("Index", new {pageNumber = i})" class="page-link">@i</a></li>
+
+                                    }
                                 </ul>
+
                             </div>
                         </div>
                     </div>
@@ -340,54 +348,63 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form asp-action="SolicitarCita" asp-controller="Client" method="post">
-                                    <div class="form-group">
-                                        <label for="Nombre">Nombre</label>
-                                        <input name="Nombre" class="form-control" required>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Solicitar Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label >Fecha</label>
-                                        <input name="Fecha" type="datetime-local" class="form-control" required>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label >Fecha</label>
+                                            <input name="Fecha" type="datetime-local" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de cita</label>
+                                            <input name="TipoCita" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Motivo</label>
+                                            <input  name="MotivoCita" class="form-control" required>
+                                        </div>
+
+                                     </div>
+
+                                    <div class="modal-footer">
+
+                                        <button type="submit" class="btn btn-success">Solicitar Cita</button>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Tipo de cita</label>
-                                        <input name="TipoCita" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Motivo</label>
-                                        <input  name="MotivoCita" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-success">Solicitar Cita</button>
                                 </form>
                             </div>
                         </div>
                     </div>
 
                     <!-- Edit Modal HTML -->
-                    <div id="requestAppointmentModal" class="modal fade">
+                    <div id="editAppointmentModal" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form asp-action="ActualizarSolicitudCita" asp-controller="Client" method="post">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Editar Cita</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
+                                        <input type="text" name="Id" id="solicitudId" readonly>
+
                                         <div class="form-group">
                                             <label>Nombre</label>
                                             <input type="text" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Fecha</label>
-                                            <input type="datetime-local" class="form-control" required>
+                                            <input id="fecha" name="Fecha" type="datetime-local" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Tipo de cita</label>
-                                            <input type="text" class="form-control" required>
+                                            <input id="tipocita" type="text" name="TipoCita" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Motivo</label>
-                                            <input type="text" class="form-control" required>
+                                            <input id="motivo" type="text" name="MotivoCita" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -405,18 +422,42 @@
                     <div id="deleteAppointmentModal" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form asp-action="CancelarSolicitudCita" asp-controller="Client" method="post">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Cancelar Cita</h4>
+                                        <h4 class="modal-title">Cancelar solicitud de cita</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Estás seguro de que deseas cancelar esta cita?</p>
-                                        <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                                        <input type="hidden" name="Id" id="deleteSolicitudId" readonly>
+                                        <p>¿Estás seguro de que deseas cancelar esta solicitud de cita?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                                        <input type="submit" class="btn btn-danger" value="Cancelar Cita">
+                                        <input type="submit" class="btn btn-danger" value="Eliminar">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Delete list Modal HTML -->
+                    <div id="deleteListAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form id="cancelAppointmentButton">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Cancelar solicitudes de cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="Id" id="deleteSolicitudId" readonly>
+                                        <p>¿Estás seguro de que deseas cancelar estas solicitudes de cita?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" id="btnCancelar" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-danger" value="Eliminar">
                                     </div>
                                 </form>
                             </div>
@@ -530,7 +571,94 @@
         });
     </script>
 
+     <script>
+            $(document).ready(function () {
+                $('.edit').on('click', function () {
+                    var solicitudId = $(this).data('id');
+                    var fecha = $(this).data('fecha');
+                    var hora = $(this).data('hora');
+                    var estado = $(this).data('estado');
+                    var motivo = $(this).data('motivo');
+                    var tipocita =$(this).data('tipocita')
 
+                    // Lógica para establecer los datos en el modal de edición
+                    $('#editAppointmentModal #solicitudId').val(solicitudId);
+                    $('#editAppointmentModal #fecha').val(fecha);
+                    $('#editAppointmentModal #hora').val(hora);
+                    $('#editAppointmentModal #estado').val(estado);
+                    $('#editAppointmentModal #motivo').val(motivo);
+                    $('#editAppointmentModal #tipocita').val(tipocita);
+
+                });
+
+                $('.delete').on('click', function () {
+                    var solicitudId = $(this).data('id');
+                    var fecha = $(this).data('fecha');
+                    var hora = $(this).data('hora');
+                    var estado = $(this).data('estado');
+                    var motivo = $(this).data('motivo');
+
+                    // Lógica para establecer los datos en el modal de eliminación
+                    $('#deleteAppointmentModal #solicitudId').val(solicitudId);
+                    $('#deleteAppointmentModal #fecha').val(fecha);
+                    $('#deleteAppointmentModal #hora').val(hora);
+                    $('#deleteAppointmentModal #estado').val(estado);
+                    $('#deleteAppointmentModal #motivo').val(motivo);
+                });
+            });
+     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.delete').on('click', function () {
+                var solicitudId = $(this).data('id');
+                $('#deleteSolicitudId').val(solicitudId);
+            });
+        });
+    </script>
+
+
+
+    <!--Cancelar citas-->
+
+        <script>
+        $(document).ready(function () {
+            $('#cancelAppointmentButton input[type="submit"]').on('click', function (event) {
+                event.preventDefault();
+
+                var selectedIds = []; // Array para almacenar los IDs de las solicitudes seleccionadas
+
+                $('input[name="options[]"]:checked').each(function () {
+                    selectedIds.push($(this).val());
+                });
+
+                var formData = new FormData();
+                for (var i = 0; i < selectedIds.length; i++) {
+                    formData.append('ids', selectedIds[i]);
+                }
+
+                $.ajax({
+                    url: '/Client/CancelarCita',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log('Solicitudes canceladas con éxito');
+                        // Eliminar visualmente las filas canceladas de la tabla
+                        $.each(selectedIds, function (index, id) {
+                            $('#checkboxSolicitud' + id).closest('tr').remove();
+                        });
+
+                        $('#btnCancelar').trigger('click');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
 
 
 

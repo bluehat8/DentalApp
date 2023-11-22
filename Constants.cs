@@ -13,6 +13,14 @@ namespace DentalApp
             asistente =3
         }
 
+        public enum DentalSolicitudCitaStatus
+        {
+            pendiente = 1,
+            aceptada = 2,
+            cancelada = 4,
+            rechazada = 5,
+        }
+
         public static Usuario? actualuser {  get; set; }
 
         public static string apiUrl = "https://localhost:7247";
