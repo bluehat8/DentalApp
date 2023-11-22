@@ -68,20 +68,20 @@
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu2" id="Historial-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">apps</i><span>Historial Clinico</span>
                     </a>
 
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu3" id="Pagos-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">extension</i><span>Pagos</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu4" id="Tratamiento-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">extension</i><span>Tratamientos</span>
                     </a>
 
@@ -479,6 +479,199 @@
                 </form>
             </div>
 
+
+            <!-- Gestionar Citas -->
+
+            <div id="GestionarCitas" class="container mt-4 d-none">
+                <h2>Panel para Aceptar/Cancelar Citas</h2>
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Ejemplo de un registro de cita -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>2023-11-20</td>
+                                    <td>09:00 AM</td>
+                                    <!-- ...otras celdas... -->
+                                    <td>
+                                        <!-- Botones de acción por cada registro -->
+                                        <button type="button" class="btn btn-success btn-sm">Aceptar</button>
+                                        <button type="button" class="btn btn-warning btn-sm">Modificar</button>
+                                        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                                    </td>
+                                </tr>
+                                <!-- Más filas de citas -->
+                                <!-- ... -->
+                            </tbody>
+                        </table>
+                        <!-- Elementos debajo de los botones -->
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" id="NuevaCitabtn" class="btn btn-primary">Nueva Cita</button>
+                                <button type="button" class="btn btn-secondary">Citas de Paciente Específico</button>
+                            </div>
+                            <div class="col">
+                                <select class="form-select">
+                                    <option value="">Filtrar por Fecha</option>
+                                    <!-- Opciones de filtrado por fecha -->
+                                </select>
+                                <select class="form-select">
+                                    <option value="">Filtrar por Estado</option>
+                                    <!-- Opciones de filtrado por estado -->
+                                </select>
+                                <button type="button" class="btn btn-info">Filtrar</button>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <p>Datos de Cita</p>
+                                <p>Estado</p>
+                                <button type="button" class="btn btn-primary">Acciones</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agregar Cita -->
+
+            <div id="AgregarCita" class="container mt-4 d-none">
+                <h2>Agregar Nueva Cita</h2>
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="tratamientoSelect" class="form-label">Tratamiento</label>
+                            <select id="tratamientoSelect" class="form-select">
+                                <!-- Opciones de tratamiento -->
+                            </select>
+                            <label for="piezasText" class="form-label mt-3">Número de Piezas Dentales Afectadas</label>
+                            <input type="text" id="piezasText" class="form-control">
+                            <label for="doctorSelect" class="form-label mt-3">Doctor</label>
+                            <select id="doctorSelect" class="form-select">
+                                <!-- Opciones de doctor -->
+                            </select>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <label for="cedulaInput" class="form-label">Cédula</label>
+                                    <input type="text" id="cedulaInput" class="form-control">
+                                </div>
+                                <div class="col-auto align-self-end">
+                                    <button type="button" class="btn btn-primary mt-4">Buscar</button>
+                                </div>
+                            </div>
+                            <label for="nombreClienteText" class="form-label mt-3">Nombre del Cliente</label>
+                            <input type="text" id="nombreClienteText" class="form-control">
+                            <label for="fechaSelect" class="form-label mt-3">Fecha</label>
+                            <select id="fechaSelect" class="form-select">
+                                <!-- Opciones de fecha -->
+                            </select>
+                            <input type="text" id="horaInput" class="form-control mt-3" placeholder="Hora">
+                            <label for="asuntoInput" class="form-label mt-3">Asunto</label>
+                            <input type="text" id="asuntoInput" class="form-control">
+                            <label for="estadoSelect" class="form-label mt-3">Estado de la Cita</label>
+                            <select id="estadoSelect" class="form-select">
+                                <!-- Opciones de estado -->
+                            </select>
+                            <label for="montoInput" class="form-label mt-3">Monto Total</label>
+                            <input type="text" id="montoInput" class="form-control">
+                            <div class="mt-4">
+                                <button type="button" class="btn btn-success me-3">Guardar</button>
+                                <button type="button" class="btn btn-danger">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="controlPagos" class="container mt-4  d-none">
+                <h2>Control de Pagos</h2>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="button" id="btnRealizarPago" class="btn btn-primary me-2">Realizar Pago</button>
+                        <button type="button" class="btn btn-secondary me-2">Listar Pagos</button>
+                        <button type="button" class="btn btn-info me-2">Estado de Cuenta</button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <select class="form-select">
+                            <option value="">Filtrar por Fecha</option>
+                            <!-- Opciones de filtrado por fecha -->
+                        </select>
+                        <select class="form-select">
+                            <option value="">Filtrar por Estado</option>
+                            <!-- Opciones de filtrado por estado -->
+                        </select>
+                        <select class="form-select">
+                            <option value="">Filtrar por Cita</option>
+                            <!-- Opciones de filtrado por cita -->
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID Pago</th>
+                                    <th>Fecha Pago</th>
+                                    <th>Estado</th>
+                                    <!-- ...otras columnas... -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí van las filas de la tabla de pagos -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <p>Datos del Pago</p>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary">Acciones</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="registroPago" class="container mt-4 d-none">
+                <h2>Registro de Pago</h2>
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="accionText" class="form-label">Acción a Realizar</label>
+                        <input type="text" id="accionText" class="form-control">
+                        <label for="tipoPagoSelect" class="form-label mt-3">Tipo de Pago</label>
+                        <select id="tipoPagoSelect" class="form-select">
+                            <option value="abono">Abono</option>
+                            <option value="saldar">Saldar</option>
+                        </select>
+                        <label for="citaSelect" class="form-label mt-3">Cita a Pagar</label>
+                        <select id="citaSelect" class="form-select">
+                            <!-- Opciones de citas disponibles -->
+                        </select>
+                        <label for="precioInput" class="form-label mt-3">Precio</label>
+                        <input type="text" id="precioInput" class="form-control">
+                        <label for="deudaInput" class="form-label mt-3">Deuda</label>
+                        <input type="text" id="deudaInput" class="form-control">
+                        <button type="button" class="btn btn-primary mt-3">Realizar Pago</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <footer class="fixed-bottom border-top bg-dark text-white text-center py-3">
                 <div class="container">
                     &copy; 2023 - DentalApp - <a href="#" class="text-white">Privacy</a>
@@ -486,7 +679,7 @@
             </footer>
         </div>
     </div>
-
+    
 
     <!----------html code compleate----------->
     <!-- Optional JavaScript -->
@@ -522,10 +715,38 @@
         });
 
         document.getElementById('citas-btn').addEventListener('click', function () {
-            document.getElementById('main-content').classList.remove('d-none');
+
+            document.getElementById('main-content').classList.add('d-none');
             document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('edit-profile').classList.add('d-none');
+            document.getElementById('GestionarCitas').classList.remove('d-none');
         });
+
+        document.getElementById('NuevaCitabtn').addEventListener('click', function () {
+
+            document.getElementById('main-content').classList.add('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('AgregarCita').classList.remove('d-none');
+        });
+
+        document.getElementById('Pagos-btn').addEventListener('click', function () {
+
+            document.getElementById('main-content').classList.add('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('controlPagos').classList.remove('d-none');
+        });
+
+        document.getElementById('btnRealizarPago').addEventListener('click', function () {
+
+            document.getElementById('main-content').classList.add('d-none');
+            document.getElementById('home-panel').classList.add('d-none');
+            document.getElementById('registroPago').classList.remove('d-none');
+        });
+
+        // document.getElementById('citas-btn').addEventListener('click', function () {
+        //     document.getElementById('main-content').classList.remove('d-none');
+        //     document.getElementById('home-panel').classList.add('d-none');
+        //     document.getElementById('edit-profile').classList.add('d-none');
+        // });
 
         document.getElementById('citas-btn').addEventListener('click', function () {
             document.getElementById('main-content').classList.remove('d-none');
