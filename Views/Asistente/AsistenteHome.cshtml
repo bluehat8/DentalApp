@@ -59,39 +59,28 @@
                     </a>
                 </li>
 
-
                 <li>
                     <a href="#homeSubmenu1" id="citas-btn" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">aspect_ratio</i>Citas
+                        <i class="material-icons">event</i>Citas
                     </a>
-
                 </li>
 
                 <li>
                     <a href="#pageSubmenu2" id="Historial-btn" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">apps</i><span>Historial Clinico</span>
+                        <i class="material-icons">insert_chart</i><span>Historial Clínico</span>
                     </a>
-
                 </li>
 
                 <li>
                     <a href="#pageSubmenu3" id="Pagos-btn" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Pagos</span>
+                        <i class="material-icons">attach_money</i><span>Pagos</span>
                     </a>
-
-                </li>
-                <li>
-                    <a href="#pageSubmenu4" id="Tratamiento-btn" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Tratamientos</span>
-                    </a>
-
                 </li>
 
                 <li>
                     <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">border_color</i><span>Mensajes</span>
+                        <i class="material-icons">message</i><span>Mensajes</span>
                     </a>
-
                 </li>
 
 
@@ -443,7 +432,9 @@
             </div>
 
             <!-- Formulario de edición del perfil -->
-            <div id="edit-profile" class="d-none">
+            <div id="edit-profile" class="mt-5 d-none">
+                <h2 class="text-center">Informaciòn de perfil</h2>
+
                 <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Asistente">
                     <div class="card card-body mb-3">
                         <div class="row">
@@ -671,12 +662,134 @@
 
 
 
+            <!--Gestionar historial clinico-->
 
-            <footer class="fixed-bottom border-top bg-dark text-white text-center py-3">
-                <div class="container">
-                    &copy; 2023 - DentalApp - <a href="#" class="text-white">Privacy</a>
+            <div id="gestionarHistorial" class="container mt-5 d-none">
+
+                <!-- Panel de Acciones -->
+                <div class="card">
+                    <div class="card-header">
+                        Acciones
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="buscar">Buscar por Cédula o Nombre:</label>
+                            <input type="text" class="form-control" id="buscar" placeholder="Ingrese cédula o nombre">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="acompanante">
+                            <label class="form-check-label" for="acompanante">Buscar por acompañante</label>
+                        </div>
+                        <button class="btn btn-primary mt-3">Filtrar Paciente</button>
+                    </div>
                 </div>
-            </footer>
+
+                <!-- Panel de Historial Clínico -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        Historial Clínico del Paciente
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="nombrePaciente">Nombre del paciente</label>
+                            <input type="text" class="form-control" id="nombrePaciente">
+                        </div>
+                        <div class="form-group">
+                            <label for="observaciones">Observaciones Generales:</label>
+                            <input type="text" class="form-control" id="observaciones">
+                        </div>
+
+                        <!-- Subtitulo de Deportes -->
+                        <h5 class="mt-4">Deportes</h5>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="practicaDeporte">
+                            <label class="form-check-label" for="practicaDeporte">Practica Deporte</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="malestarDeporte">
+                            <label class="form-check-label" for="malestarDeporte">Presenta Malestar al Deportar</label>
+                        </div>
+
+                        <!-- Subtitulo de Padres -->
+                        <h5 class="mt-4">Padres</h5>
+                        <div class="form-group">
+                            <label for="enfermedadesPadre">Enfermedades del Padre:</label>
+                            <input type="text" class="form-control" id="enfermedadesPadre">
+                        </div>
+                        <div class="form-group">
+                            <label for="enfermedadesMadre">Enfermedades de la Madre:</label>
+                            <input type="text" class="form-control" id="enfermedadesMadre">
+                        </div>
+
+                        <!-- Subtitulo de Enfermedades Propias -->
+                        <h5 class="mt-4">Enfermedades Propias</h5>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="diabetico">
+                            <label class="form-check-label" for="diabetico">Diabético</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="problemasRenales">
+                            <label class="form-check-label" for="problemasRenales">Problemas Renales</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="presionAlta">
+                            <label class="form-check-label" for="presionAlta">Presión Alta</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="epileptico">
+                            <label class="form-check-label" for="epileptico">Epileptico</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="otrasEnfermedades">Otras Enfermedades:</label>
+                            <input type="text" class="form-control" id="otrasEnfermedades">
+                        </div>
+
+                        <!-- Subtitulo de Operaciones -->
+                        <h5 class="mt-4">Operaciones</h5>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="operaciones">
+                            <label class="form-check-label" for="operaciones">Ha tenido operaciones</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="detalleOperacion">Detalle de la Operación:</label>
+                            <input type="text" class="form-control" id="detalleOperacion">
+                        </div>
+
+                        <!-- Subtitulo de Salud Dental -->
+                        <h5 class="mt-4">Salud Dental</h5>
+                        <div class="form-group">
+                            <label for="estadoBucal">Estado Bucal:</label>
+                            <textarea class="form-control" id="estadoBucal" rows="2"></textarea>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="caries">
+                            <label class="form-check-label" for="caries">Caries</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="dientesFracturados">
+                            <label class="form-check-label" for="dientesFracturados">Dientes Fracturados</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="sangradoEncias">
+                            <label class="form-check-label" for="sangradoEncias">Sangrado de Encías</label>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="mt-4">
+                            <button class="btn btn-success">Guardar</button>
+                            <button class="btn btn-secondary">Cancelar</button>
+                            <button class="btn btn-danger">Dar de Baja</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--End historial clinico-->
+
+
+
         </div>
     </div>
     
@@ -707,58 +820,48 @@
     </script>
 
     <script type="text/javascript">
-        document.getElementById('editProfileLink').addEventListener('click', function () {
 
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('edit-profile').classList.remove('d-none');
+
+
+        function hideAllAndShowOne(showId) {
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial'];
+
+            allPanels.forEach(function (panelId) {
+                $('#' + panelId).addClass('d-none');
+            });
+
+            $('#' + showId).removeClass('d-none');
+        }
+
+        $('#editProfileLink').click(function () {
+            hideAllAndShowOne('edit-profile');
+           
         });
 
-        document.getElementById('citas-btn').addEventListener('click', function () {
-
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('GestionarCitas').classList.remove('d-none');
+        $('#citas-btn').click(function () {
+            hideAllAndShowOne('GestionarCitas');
         });
 
-        document.getElementById('NuevaCitabtn').addEventListener('click', function () {
-
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('AgregarCita').classList.remove('d-none');
+        $('#NuevaCitabtn').click(function () {
+            hideAllAndShowOne('AgregarCita');
         });
 
-        document.getElementById('Pagos-btn').addEventListener('click', function () {
-
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('controlPagos').classList.remove('d-none');
+        $('#Pagos-btn').click(function () {
+            hideAllAndShowOne('controlPagos');
         });
 
-        document.getElementById('btnRealizarPago').addEventListener('click', function () {
-
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('registroPago').classList.remove('d-none');
+        $('#btnRealizarPago').click(function () {
+            hideAllAndShowOne('registroPago');
         });
 
-        // document.getElementById('citas-btn').addEventListener('click', function () {
-        //     document.getElementById('main-content').classList.remove('d-none');
-        //     document.getElementById('home-panel').classList.add('d-none');
-        //     document.getElementById('edit-profile').classList.add('d-none');
-        // });
-
-        document.getElementById('citas-btn').addEventListener('click', function () {
-            document.getElementById('main-content').classList.remove('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('edit-profile').classList.add('d-none');
+        $('#dashboard-btn').click(function () {
+            hideAllAndShowOne('home-panel');
         });
 
-        document.getElementById('dashboard-btn').addEventListener('click', function () {
-            document.getElementById('main-content').classList.add('d-none');
-            document.getElementById('home-panel').classList.remove('d-none');
-            document.getElementById('edit-profile').classList.add('d-none');
+        $('#Historial-btn').click(function () {
+            hideAllAndShowOne('gestionarHistorial');
         });
+
     </script>
 
 

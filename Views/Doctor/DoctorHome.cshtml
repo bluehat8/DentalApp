@@ -443,7 +443,7 @@
             </div>
 
             <!-- Formulario de edición del perfil -->
-            <div id="edit-profile" class="d-none">
+            <div id="edit-profile" class="mt-5 d-none">
                 <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Doctor">
                     <div class="card card-body mb-3">
                         <div class="row">
@@ -471,15 +471,20 @@
                                 <label for="editPhone" class="form-label">Teléfono:</label>
                                 <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono">
                             </div>
+                            <div class="col-md-6">
+                                <label for="editEspecialidad" class="form-label">Especialidad:</label>
+
+                                <select class="form-control prof-inputs" id="editEspecialidad" asp-for="@Model.Usuario.Especialidad">
+                                    @foreach (var item in Model.Especialidades)
+                                    {
+                                        <option value="@item.ID" selected="@((item.ID == Model._Doctor.Especialidad))">
+                                            @item.Especialidad1
+                                        </option>
+                                    }
+                                </select>
+                            </div>
                         </div>
-                        <select asp-for="@Model.Usuario.Especialidad">
-                            @foreach (var item in Model.Especialidades)
-                            {
-                                <option value="@item.ID" selected="@((item.ID == Model._Doctor.Especialidad))">
-                                    @item.Especialidad1
-                                </option>
-                            }
-                        </select>
+
                         <div class="d-grid mt-3">
                             <button id="saveProfileChanges" class="btn btn-primary prof-inputs" type="submit" name="Save">Save Changes</button>
                         </div>

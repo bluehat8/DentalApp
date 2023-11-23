@@ -33,7 +33,7 @@ namespace DentalApp.Controllers
                 return await signOut();
             }
 
-            Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+            Usuario? u = JsonConvert.DeserializeObject<Usuario?>(usuarioJson);
             userService = new UserService(new ApiClient(httpClient));
             Asistente = new AsistenteServices(new ApiClient(httpClient));
 
