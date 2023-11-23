@@ -149,11 +149,11 @@
                                 <nav class="navbar p-0">
                                     <ul class="nav navbar-nav flex-row ml-auto">
                                         <li class="dropdown nav-item active">
-                                            <a href="#" class="nav-link" data-toggle="dropdown">
+                                            <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
                                                 <span class="material-icons">notifications</span>
-                                                <span class="notification">4</span>
+                                                <span class="notification">5</span>
                                             </a>
-                                            <ul class="dropdown-menu">
+@*                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a href="#">You have 5 new messages</a>
                                                 </li>
@@ -167,7 +167,7 @@
                                                     <a href="#">5 warnings in Server Console</a>
                                                 </li>
 
-                                            </ul>
+                                            </ul> *@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#">
@@ -510,14 +510,26 @@
                 </form>
             </div>
 
-            <footer class="fixed-bottom border-top bg-dark text-white text-center py-3">
-                <div class="container">
-                    &copy; 2023 - DentalApp - <a href="#" class="text-white">Privacy</a>
+            <div id="notificaciones" class="card-body d-none" >
+
+            <h2 class="mt-3 ml-2">Notificaciones</h2>
+            <div class="mt-3">
+                <div class="card bg-light">
+                    <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
+                            <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
+                            <div class="flex-grow-1">
+                            <h5 class="card-title mb-1">{{subject}}</h5>
+                            <p class="card-text text-muted">{{body}} <a href="#">Click here</a> to view details.</p>
+                            <p class="card-text text-muted"><small>{{timeAgo}}</small></p>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+            </div>
+            </div>
+
+     
         </div>
     </div>
-
 
     <!----------html code compleate----------->
     <!-- Optional JavaScript -->
@@ -526,7 +538,6 @@
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery-3.3.1.min.js"></script>
-
 
     <script type="text/javascript">
 
@@ -545,18 +556,18 @@
     </script>
 
     <script type="text/javascript">
-        document.getElementById('editProfileLink').addEventListener('click', function () {
+       document.getElementById('editProfileLink').addEventListener('click', function () {
 
             document.getElementById('main-content').classList.add('d-none');
             document.getElementById('home-panel').classList.add('d-none');
             document.getElementById('edit-profile').classList.remove('d-none');
         });
 
-        document.getElementById('citas-btn').addEventListener('click', function () {
-            document.getElementById('main-content').classList.remove('d-none');
-            document.getElementById('home-panel').classList.add('d-none');
-            document.getElementById('edit-profile').classList.add('d-none');
-        });
+        // document.getElementById('citas-btn').addEventListener('click', function () {
+        //     document.getElementById('main-content').classList.remove('d-none');
+        //     document.getElementById('home-panel').classList.add('d-none');
+        //     document.getElementById('edit-profile').classList.add('d-none');
+        // });
 
         document.getElementById('citas-btn').addEventListener('click', function () {
             document.getElementById('main-content').classList.remove('d-none');
@@ -569,6 +580,38 @@
             document.getElementById('home-panel').classList.remove('d-none');
             document.getElementById('edit-profile').classList.add('d-none');
         });
+
+
+        function hideAllAndShowOne(showId) {
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'notificaciones'];
+
+            allPanels.forEach(function (panelId) {
+                $('#' + panelId).addClass('d-none');
+            });
+
+            $('#' + showId).removeClass('d-none');
+        }
+
+        $('#editProfileLink').click(function () {
+            hideAllAndShowOne('edit-profile');
+
+        });
+
+        $('#citas-btn').click(function () {
+            hideAllAndShowOne('main-content');
+        });
+
+        $('#dashboard-btn').click(function () {
+            hideAllAndShowOne('home-panel');
+        });
+
+        $('#btn-notificaciones').click(function () {
+            hideAllAndShowOne('notificaciones');
+        });
+
+
+
+        
     </script>
 
      <script>
