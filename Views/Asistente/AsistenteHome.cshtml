@@ -78,13 +78,10 @@
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu5" id="Mensajes-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">message</i><span>Mensajes</span>
                     </a>
                 </li>
-
-
-
 
             </ul>
 
@@ -788,7 +785,36 @@
             </div>
             <!--End historial clinico-->
 
+            <!--Mensajeria-->
 
+            <div id="Mensajeria" class="container mt-4 d-none">
+                <div class="row">
+                    <!-- Div Izquierdo -->
+                    <div class="col-md-4">
+                        <h2>Panel de Bandeja</h2>
+                        <input type="text" class="form-control mb-2" placeholder="Agregar nuevo chat">
+                        <button type="button" class="btn btn-primary mb-2">Agregar</button>
+                        <label for="listaUsuarios" class="form-label">Lista de Usuarios</label>
+                        <div class="text-center">
+                            <input type="text" id="buscarUsuario" class="form-control mb-2" placeholder="Buscar usuario">
+                            <button type="button" class="btn btn-secondary mb-2">Nombre del Usuario</button>
+                        </div>
+                    </div>
+                    <!-- Div Derecho -->
+                    <div class="col-md-8">
+                        <h2>Panel de Mensajería</h2>
+                        <div>
+                            <p>Datos del mensaje recibido o enviado</p>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Escribe tu mensaje aquí">
+                            <button class="btn btn-primary" type="button">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Mensajeria-->
 
         </div>
     </div>
@@ -861,6 +887,11 @@
         $('#Historial-btn').click(function () {
             hideAllAndShowOne('gestionarHistorial');
         });
+
+        $('#Mensajes-btn').click(function () {
+            hideAllAndShowOne('Mensajeria');
+        });
+
 
     </script>
 
