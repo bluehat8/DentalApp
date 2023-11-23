@@ -78,13 +78,10 @@
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu5" id="Mensajes-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">message</i><span>Mensajes</span>
                     </a>
                 </li>
-
-
-
 
             </ul>
 
@@ -787,8 +784,48 @@
 
             </div>
             <!--End historial clinico-->
+            <!--CSS MENSAJERIA-->
+           <style>
+                /* Estilos CSS para la clase bg-custom-green */
+                .bg-custom-green {
+                    background-color: #A5C2A5; /* Cambia el valor de fondo por el color verde que desees */
+                }
+            </style>
+          
+            <!-- END CSS MENSAJERIA-->
+            <!--Mensajeria-->
+            <div id="Mensajeria" class="container-fluid d-none vh-100">
+                <div class="row h-100 mt-4">
+                    <!-- Div Izquierdo -->
+                    <div class="col-md-4 bg-custom-green">
+                        <h2 class="mb-4">Panel de Bandeja</h2>
+                        <div class="mb-3 mt-4">
+                            <input type="text" class="form-control mb-2" placeholder="Agregar nuevo chat" style="margin-bottom: 10px;">
+                            <button type="button" class="btn btn-primary d-block mx-auto  mb-3">Agregar</button>
+                        </div>
+                        <label for="listaUsuarios" class="form-label d-block text-center mb-2" style="margin-top:60px;">Lista de Usuarios</label>
+                        <div class="text-center mt-4 mb-4">
+                            <input type="text" id="buscarUsuario" class="form-control mb-2" placeholder="Buscar usuario">
+                            <button type="button" class="btn btn-secondary">Nombre del Usuario</button>
+                        </div>
+                    </div>
+                    <!-- Div Derecho -->
+                    <div class="col-md-8 d-flex flex-column">
+                        <h2 class="mb-4">Panel de Mensajería</h2>
+                        <div class="mb-3 text-center">
+                            <p>Datos del mensaje recibido o enviado</p>
+                        </div>
+                        <div class="input-group mt-auto">
+                            <input type="text" class="form-control" placeholder="Escribe tu mensaje aquí">
+                            <button class="btn btn-primary" type="button">Enviar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 
+            <!--Mensajeria-->
 
         </div>
     </div>
@@ -824,7 +861,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial', 'Mensajeria'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -861,6 +898,11 @@
         $('#Historial-btn').click(function () {
             hideAllAndShowOne('gestionarHistorial');
         });
+
+        $('#Mensajes-btn').click(function () {
+            hideAllAndShowOne('Mensajeria');
+        });
+
 
     </script>
 
