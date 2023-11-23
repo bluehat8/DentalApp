@@ -11,7 +11,7 @@ namespace DentalApp.Services.ClientServices
         private readonly HttpClient _httpClient = new HttpClient();
 
 
-        public static async Task<List<SolicitudCita>> ObtenerSolicitudesCitasPorUsuario(int usuarioId)
+        public static async Task<List<SolicitudCita?>> ObtenerSolicitudesCitasPorUsuario(int usuarioId)
         {
             string apiUrl = Constants.apiUrl+ "/api/citas/solicitudes-cita/" + usuarioId;
 

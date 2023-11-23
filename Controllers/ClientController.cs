@@ -11,6 +11,7 @@ using DentalApp.Services.User;
 using System.Globalization;
 using System.Drawing.Printing;
 using System.Reflection;
+using DentalApp.Services.NotificacionesServices;
 
 namespace DentalApp.Controllers
 {
@@ -18,6 +19,7 @@ namespace DentalApp.Controllers
     {
         private UserService userService;
         private ServicioSolicitarCita cita = new ServicioSolicitarCita();
+        private ServicioNotificaciones notificacionesServ;
 
 
 
@@ -37,24 +39,24 @@ namespace DentalApp.Controllers
 
             Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
             userService = new UserService(new ApiClient(httpClient));
+            notificacionesServ = new ServicioNotificaciones();
+
 
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
-            List<SolicitudCita> solicitudCita = await ServicioSolicitarCita.ObtenerSolicitudesCitasPorUsuario(u.Id);
-
-            var citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
+            List<SolicitudCita>? solicitudCita = await ServicioSolicitarCita.ObtenerSolicitudesCitasPorUsuario(u.Id);
+            List<SolicitudCita>? citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
+            List<Notificaciones?>? notificaciones = await notificacionesServ.ObtenerNotificacionesPorCliente(usuarioactual.Id);
 
             int TotalRecords = citasFilter.Count();
 
-            // Calcular número de páginas
             int TotalPages = (int)Math.Ceiling((decimal)TotalRecords / 7);
+
 
             // Aplicar paginación
             citasFilter = citasFilter
               .Skip((1 - 1) * 7)
             .Take(7)
               .ToList();
-
-            //model.PageNumber = pageNumber;
 
             var viewModel = new ClientHomeViewModel
             {
@@ -63,6 +65,7 @@ namespace DentalApp.Controllers
                 TotalRecords = TotalRecords, 
                 TotalPages = TotalPages,
                 PageNumber = 1,
+                notificaciones = notificaciones
             };
 
             return View(viewModel);
@@ -125,7 +128,7 @@ namespace DentalApp.Controllers
 
 
                 var usuarioJson = HttpContext.Session.GetString("Usuario");
-                Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+                Usuario? u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
 
                 solicitudDto.Userid = u.Id;
 
@@ -165,7 +168,7 @@ namespace DentalApp.Controllers
 
 
                 var usuarioJson = HttpContext.Session.GetString("Usuario");
-                Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+                Usuario? u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
 
                 solicitudDto.Userid = u.Id;
 

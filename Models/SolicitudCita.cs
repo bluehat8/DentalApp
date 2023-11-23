@@ -14,5 +14,7 @@
         public string? MotivoCita { get; set; }
         public byte Estado { get; set; }
         public bool Activo { get; set; }
+        public string? NombrePaciente { get; set; }
+        public string? ApellidoPaciente { get; set; }
     }
 }

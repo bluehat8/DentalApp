@@ -64,7 +64,7 @@ namespace DentalApp.Controllers
         public async Task<IActionResult> ActualizarUsuario(Usuario usuario)
         {
             var usuarioJson = HttpContext.Session.GetString("Usuario");
-            Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+            Usuario? u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
             HttpClient httpClient = await TokenAuthentication.AutenticarConTokenAsync();
             userService = new UserService(new ApiClient(httpClient));
 

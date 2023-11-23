@@ -151,30 +151,10 @@
                                         <li class="dropdown nav-item active">
                                             <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
                                                 <span class="material-icons">notifications</span>
-                                                <span class="notification">5</span>
-                                            </a>
-@*                                             <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#">You have 5 new messages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">You're now friend with Mike</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Wish Mary on her birthday!</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">5 warnings in Server Console</a>
-                                                </li>
-
-                                            </ul> *@
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="material-icons">question_answer</span>
-
+                                                <span class="notification">@Model.notificaciones.Count</span>
                                             </a>
                                         </li>
+                                      
                                         <li class="nav-item dropdown">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
                                                 <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
@@ -512,19 +492,23 @@
 
             <div id="notificaciones" class="card-body d-none" >
 
-            <h2 class="mt-3 ml-2">Notificaciones</h2>
-            <div class="mt-3">
-                <div class="card bg-light">
-                    <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
-                            <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
-                            <div class="flex-grow-1">
-                            <h5 class="card-title mb-1">{{subject}}</h5>
-                            <p class="card-text text-muted">{{body}} <a href="#">Click here</a> to view details.</p>
-                            <p class="card-text text-muted"><small>{{timeAgo}}</small></p>
+                <h2 class="mt-3 ml-2">Notificaciones</h2>
+                @foreach (var item in Model.notificaciones)
+                {
+
+                    <div class="mt-2">
+                        <div class="card bg-light">
+                            <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
+                                <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
+                                <div class="flex-grow-1 ml-2">
+                                    <h5 class="card-title mb-1">@item.Asunto</h5>
+                                    <p class="card-text text-muted">@item.Cuerpo</p>
+                                    <p class="card-text text-muted"><small>@item.FechaCreacion</small></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                }
             </div>
 
      

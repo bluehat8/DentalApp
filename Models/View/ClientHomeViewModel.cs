@@ -2,8 +2,9 @@
 {
     public class ClientHomeViewModel
     {
-        public Usuario Usuario { get; set; }
-        public List<SolicitudCita> SolicitudesCita { get; set; }
+        public Usuario? Usuario { get; set; }
+        public List<SolicitudCita>? SolicitudesCita { get; set; }
+        public List<Notificaciones?>? notificaciones { get; set; }
         public int PageNumber { get; set; }
 
         public int TotalRecords { get; set; }

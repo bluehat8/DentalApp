@@ -135,32 +135,13 @@
                                 <nav class="navbar p-0">
                                     <ul class="nav navbar-nav flex-row ml-auto">
                                         <li class="dropdown nav-item active">
-                                            <a href="#" class="nav-link" data-toggle="dropdown">
+                                            <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
                                                 <span class="material-icons">notifications</span>
-                                                <span class="notification">4</span>
+                                                <span class="notification">@Model.notificaciones.Count</span>
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#">You have 5 new messages</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">You're now friend with Mike</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Wish Mary on her birthday!</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">5 warnings in Server Console</a>
-                                                </li>
-
-                                            </ul>
+                        
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="material-icons">question_answer</span>
 
-                                            </a>
-                                        </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
                                                 <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
@@ -477,29 +458,49 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Cliente</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Estado</th>
+                                    <th>
+                                        <span class="custom-checkbox">
+                                            <input type="checkbox" id="selectAll">
+                                            <label for="selectAll"></label>
+                                        </span>
+                                    </th>
+                                    <th class="w-auto">ID</th>
+                                    <th class="w-auto">User ID</th>
+                                    <th class="w-auto">Cliente</th>
+                                    <th class="w-auto">Fecha</th>
+                                    <th class="w-auto">Motivo</th>
+                                    <th class="w-auto">Tipo Cita</th>
+                                    <th class="w-auto">Estado</th>
+                                    <th class="w-auto">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Ejemplo de un registro de cita -->
-                                <tr>
-                                    <td>1</td>
-                                    <td>2023-11-20</td>
-                                    <td>09:00 AM</td>
-                                    <!-- ...otras celdas... -->
+                            
+                               @foreach (var solicitud in Model.solicitudes)
+                                {
+                                    <tr>
                                     <td>
-                                        <!-- Botones de acción por cada registro -->
-                                        <button type="button" class="btn btn-success btn-sm">Aceptar</button>
-                                        <button type="button" class="btn btn-warning btn-sm">Modificar</button>
-                                        <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                                        <span class="custom-checkbox">
+                                        <input type="checkbox" id="checkbox@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
+                                        <label for="checkbox@(solicitud.Id)"></label>
+                                        </span>
                                     </td>
-                                </tr>
-                                <!-- Más filas de citas -->
-                                <!-- ... -->
+                                        <td>@solicitud.Id</td>
+                                        <td>@solicitud.Userid</td>
+                                        <td>@solicitud.NombrePaciente @solicitud.ApellidoPaciente</td>
+                                        <td>@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td>@solicitud.MotivoCita</td>
+                                        <td>@solicitud.TipoCita</td>
+                                        <td>@solicitud.Estado</td>
+
+                                    <td>
+                                            <!-- Botones de acción por cada registro -->
+                                            <button type="button" id="aceptarSolicitud" data-solicitud="@solicitud.Id" class="btn btn-success btn-sm">Aceptar</button>
+                                            <button type="button" class="btn btn-warning btn-sm">Modificar</button>
+                                            <button type="button"  id="cancelarSolicitud" data-solicitud="@solicitud.Id" class="btn btn-danger btn-sm">Cancelar</button>
+                                    </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                         <!-- Elementos debajo de los botones -->
@@ -827,6 +828,31 @@
 
             <!--Mensajeria-->
 
+            <!--Notificaciones-->
+
+            <div id="notificaciones" class="card-body d-none">
+
+                <h2 class="mt-3 ml-2">Notificaciones</h2>
+                @foreach(var item in Model.notificaciones){
+
+                    <div class="mt-2">
+                        <div class="card bg-light">
+                            <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
+                                <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
+                                <div class="flex-grow-1 ml-2">
+                                    <h5 class="card-title mb-1">@item.Asunto</h5>
+                                    <p class="card-text text-muted">@item.Cuerpo</p>
+                                    <p class="card-text text-muted"><small>@item.FechaCreacion</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!--Notificaciones-->
+
+
         </div>
     </div>
     
@@ -861,7 +887,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial', 'Mensajeria'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial', 'Mensajeria', 'notificaciones'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -903,7 +929,68 @@
             hideAllAndShowOne('Mensajeria');
         });
 
+        $('#btn-notificaciones').click(function () {
+            hideAllAndShowOne('notificaciones');
+        });
 
+
+    </script>
+
+    <!--Aprobar citas-->
+
+    <script>
+        $(document).ready(function () {
+            $('#aceptarSolicitud').on('click', function (event) {
+                event.preventDefault();
+
+                var formData = new FormData();
+                formData.append('idsolicitud', $(this).data('solicitud'));
+
+                $.ajax({
+                    url: '/Asistente/AceptarCita',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log('Solicitud aprobada con éxito');
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <!--Rechazar citas-->
+
+    <script>
+        $(document).ready(function () {
+            $('#cancelarSolicitud').on('click', function (event) {
+                event.preventDefault();
+
+                var formData = new FormData();
+                formData.append('idsolicitud', $(this).data('solicitud'));
+
+                $.ajax({
+                    url: '/Asistente/RechazarCita',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log('Solicitud rechazada con éxito');
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
     </script>
 
 

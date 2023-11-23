@@ -10,6 +10,7 @@ using DentalApp.Models.View;
 using DentalApp.Services.User;
 using DentalApp.Services.DoctorServices;
 using DentalApp.Services.AsistenteServices;
+using DentalApp.Services.NotificacionesServices;
 
 namespace DentalApp.Controllers
 {
@@ -17,6 +18,9 @@ namespace DentalApp.Controllers
     {
         private UserService userService;
         private AsistenteServices Asistente;
+        private ServicioNotificaciones notificacionesServ;
+        private ServicioSolicitudCitaAsistente solicitudService;
+
 
         public AsistenteController()
         {
@@ -36,17 +40,23 @@ namespace DentalApp.Controllers
             Usuario? u = JsonConvert.DeserializeObject<Usuario?>(usuarioJson);
             userService = new UserService(new ApiClient(httpClient));
             Asistente = new AsistenteServices(new ApiClient(httpClient));
+            notificacionesServ = new ServicioNotificaciones();
+            solicitudService = new ServicioSolicitudCitaAsistente();
 
 
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
             Asistente? A = await Asistente.ObtenerAsistenteAsync(u.Id);
+            List<Notificaciones>? notificaciones = await notificacionesServ.ListarNotificaciones();
+            List<SolicitudCita>? solicitudes = await solicitudService.ListarTodasLasSolicitudes();
 
 
             // Crear el modelo de vista y asignar valores
             var viewModel = new AsistenteHomeViewModel
             {
                 Usuario = usuarioactual,
-                _Asistente = A
+                _Asistente = A,
+                notificaciones =notificaciones,
+                solicitudes = solicitudes
             };
 
             // Devolver el modelo de vista a la vista
