@@ -75,14 +75,14 @@
 
              
                 <li>
-                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu4" id="btn-tratamientos" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">medical_services</i><span>Tratamientos</span>
                     </a>
 
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu5" id="btn-progreso" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">medical_services</i><span>Progreso tratamiento</span>
                     </a>
 
@@ -235,6 +235,218 @@
                                 <p class="card-text">Hora: 11:30 AM</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tratamientos-->
+
+            <div id="pnl-tratamientos" class="col-md-12 d-none">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                                <h2 class="ml-lg-2">Gestión de Tratamientos Dentales</h2>
+                            </div>
+                            <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                                <!-- Nuevo botón para agregar tratamiento -->
+                                <a href="#addTreatmentModal" class="btn btn-success" data-toggle="modal">
+                                    <i class="material-icons">&#xE147;</i> <span>Nuevo Tratamiento</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Input para buscar tratamientos -->
+                        <div class="row mt-3">
+                            <div class="col-sm-6 input-group">
+                                <input type="text" class="form-control" placeholder="Buscar tratamientos" id="searchTreatmentInput">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="filterTreatmentButton">
+                                        <i class="material-icons">&#xE8B6;</i> <span>Filtrar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tabla de tratamientos -->
+                    <div id="pnl-table-tratamiento"> 
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Duración</th>
+                                <th>Restricciones</th>
+                                <th>Precio</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tratamiento in Model.Tratamientos)
+                            {
+                                <tr>
+                                    
+                                    <td>@tratamiento.Nombre</td>
+                                    <td>@tratamiento.Descripcion</td>
+                                    <td>@tratamiento.Duracion</td>
+                                    <td>@tratamiento.Restricciones</td>
+                                    <td>@tratamiento.Precio</td>
+                                    <td>@tratamiento.Imagen</td>
+                                    <td>
+                                        <!-- Acciones de editar y eliminar -->
+                                        <a href="#editTreatmentModal" class="edit" data-toggle="modal"
+                                           data-id="@tratamiento.Id"
+                                           data-nombre="@tratamiento.Nombre"
+                                           data-descripcion="@tratamiento.Descripcion"
+                                           data-duracion="@tratamiento.Duracion"
+                                           data-restricciones="@tratamiento.Restricciones"
+                                           data-precio="@tratamiento.Precio"
+                                           data-imagen="@tratamiento.Imagen">
+                                            <i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i>
+                                        </a>
+                                        <a href="#deleteTreatmentModal" class="delete" data-toggle="modal"
+                                           data-id="@tratamiento.Id">
+                                            <i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <!-- Paginación -->
+                    <div class="clearfix">
+                        <div class="hint-text">Mostrando <b>@Model.Tratamientos.Count()</b> de <b>@Model.Tratamientos.Count</b> tratamientos</div>
+                        <ul class="pagination">
+                           @*  @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                <li class="page-item"><a href="@Url.Action("Index", new { pageNumber = i })" class="page-link">@i</a></li>
+                            } *@
+                        </ul>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Add Treatment Modal HTML -->
+            <div id="addTreatmentModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="agregarTratamiento" method="post">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Agregar Tratamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="Nombre" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Descripción</label>
+                                        <input type="text" class="form-control" name="Descripcion" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Duración</label>
+                                        <input type="text" class="form-control" name="Duracion" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Restricciones</label>
+                                        <input type="text" class="form-control" name="Restricciones" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    <input type="text" class="form-control" name="Precio" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen</label>
+                                    <input type="file" class="form-control" name="Imagen" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="cancelarRegistro" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Treatment Modal HTML -->
+            <div id="editTreatmentModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form asp-action="ActualizarTratamiento" asp-controller="Dentista" method="post">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Editar Tratamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="Id" id="tratamientoId">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="Nombre" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Descripción</label>
+                                        <input type="text" class="form-control" name="Descripcion" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Duración</label>
+                                        <input type="text" class="form-control" name="Duracion" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Restricciones</label>
+                                        <input type="text" class="form-control" name="Restricciones" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio</label>
+                                    <input type="text" class="form-control" name="Precio" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen</label>
+                                    <input type="file" class="form-control" name="Imagen" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-info">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Modal HTML -->
+            <div id="deleteTreatmentModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form id="eliminarTratamiento">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Eliminar tratamiento</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="Id" id="deleteTratamientoId" readonly>
+                                <p>¿Estás seguro de que deseas eliminar este tratamiento?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                <input type="submit" class="btn btn-danger" value="Eliminar">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -647,6 +859,127 @@
 
 
 
+            <div id="pnl-progresotratamiento" class="container-fluid mt-5 d-none">
+                <div class="row">
+                    <!-- Subpanel izquierdo -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">Lista de Tratamientos</h4>
+                            </div>
+                            <div class="card-body overflow-auto">
+                                <!-- Input y botón de búsqueda -->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Cédula del paciente" id="inputCedula">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" type="button">Filtrar</button>
+                                        <button class="btn btn-primary ml-2" type="button">Agregar Tratamiento</button>
+                                    </div>
+                                </div>
+                                <!-- Tabla de tratamientos -->
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Fecha de Inicio</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaTratamientos">
+                                        <!-- Registros de ejemplo -->
+                                        <tr>
+                                            <td>Tratamiento 1</td>
+                                            <td>Descripción 1</td>
+                                            <td>01/01/2023</td>
+                                            <td><button class="btn btn-info" onclick="verDetalles(this)">Ver Detalles</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tratamiento 2</td>
+                                            <td>Descripción 2</td>
+                                            <td>02/01/2023</td>
+                                            <td><button class="btn btn-info" onclick="verDetalles(this)">Ver Detalles</button></td>
+                                        </tr>
+                                        <!-- Puedes agregar más registros aquí -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="mb-0">Detalles del Progreso del Tratamiento</h4>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProgressModal">
+                                        Añadir Progreso
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body overflow-auto">
+                                <!-- Tabla de detalles -->
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha de Seguimiento</th>
+                                            <th>Observaciones</th>
+                                            <!-- Agrega más columnas según sea necesario -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaDetalles">
+                                        <!-- Registros de ejemplo -->
+                                        <tr>
+                                            <td>01/02/2023</td>
+                                            <td>Observaciones de ejemplo 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>02/02/2023</td>
+                                            <td>Observaciones de ejemplo 2</td>
+                                        </tr>
+                                        <!-- Puedes agregar más registros aquí -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para añadir progreso -->
+                    <div class="modal fade" id="addProgressModal" tabindex="-1" role="dialog" aria-labelledby="addProgressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addProgressModalLabel">Añadir Progreso</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Contenido del formulario para añadir progreso -->
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="fechaSeguimiento">Fecha de Seguimiento</label>
+                                            <input type="date" class="form-control" id="fechaSeguimiento">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="observaciones">Observaciones</label>
+                                            <textarea class="form-control" id="observaciones" rows="3"></textarea>
+                                        </div>
+                                        <!-- Puedes agregar más campos según sea necesario -->
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" onclick="guardarProgreso()">Guardar Progreso</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
@@ -708,7 +1041,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'gestionarHistorial', 'notificaciones'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'gestionarHistorial', 'notificaciones', 'pnl-tratamientos', 'pnl-progresotratamiento'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -740,6 +1073,14 @@
         });
 
 
+        $('#btn-tratamientos').click(function () {
+            hideAllAndShowOne('pnl-tratamientos');
+        });
+        $('#btn-progreso').click(function () {
+            hideAllAndShowOne('pnl-progresotratamiento');
+        });
+
+
     </script>
 
     <script>
@@ -748,6 +1089,87 @@
             $('#enableEdit').on('click', function () {
                 // Habilitar todos los campos del formulario
                 $('#editProfileForm input, #editProfileForm select').prop('disabled', false);
+            });
+        });
+    </script>
+
+
+
+    <script>
+        // Script para manejar el clic en elementos con la clase 'delete'
+        $(document).on('click', '.delete', function () {
+            var tratamientoId = $(this).data('id');
+            $('#deleteTratamientoId').val(tratamientoId);
+        });
+
+        // Script para manejar el envío del formulario 'agregarTratamiento'
+        $(document).on('submit', '#agregarTratamiento', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "/Doctor/AgregarTratamiento",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Limpia los campos del formulario
+                    // Actualiza la tabla u otro contenido con la respuesta
+                    $('#pnl-table-tratamiento').html(response);
+                    $('#cancelarRegistro').trigger('click');
+                    $("#agregarTratamiento")[0].reset();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        // Script para manejar el envío del formulario 'eliminarTratamiento'
+        $(document).on('submit', '#eliminarTratamiento', function (event) {
+            event.preventDefault();
+
+            var formData = new FormData();
+            var tratamientoId = $("#deleteTratamientoId").val();
+
+            formData.append('idtratamiento', tratamientoId);
+
+            $.ajax({
+                url: '/Doctor/EliminarTratamiento',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log('Tratamiento eliminado con éxito');
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+        // Script para manejar el clic en el botón "Filtrar"
+        $(document).on('click', '#filterTreatmentButton', function () {
+            var searchTerm = $("#searchTreatmentInput").val();
+
+            // Realiza la solicitud AJAX para filtrar por nombre
+            $.ajax({
+                type: "GET",
+                url: `/Doctor/FiltrarTratamientoPorNombre?filtro=${encodeURIComponent(searchTerm)}`,
+                contentType: "application/json",
+                success: function (data) {
+                    // Manipula la respuesta según tus necesidades
+                    console.log("Tratamientos filtrados");
+                    // Actualiza la tabla u otro contenido con los resultados
+                    $('#pnl-table-tratamiento').html(data);
+                },
+                error: function (error) {
+                    console.error("Error al filtrar tratamientos:", error);
+                }
             });
         });
     </script>

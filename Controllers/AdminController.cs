@@ -18,7 +18,7 @@ namespace DentalApp.Controllers
     public class AdminController : Controller
     {
         private UserService userService = new UserService();
-
+        private ServicioNotificaciones? notificacionesServ;
 
         public AdminController()
         {
@@ -35,16 +35,19 @@ namespace DentalApp.Controllers
                 return await signOut();
             }
 
+            notificacionesServ = new ServicioNotificaciones();
             Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
           
 
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
-           
+            List<Notificaciones>? notificaciones = await notificacionesServ.ListarNotificaciones();
+
+
 
             var viewModel = new AdminViewModel
             {
-                Usuario = usuarioactual,
-               
+               Usuario = usuarioactual,
+               notificaciones= notificaciones
             };
 
             return View(viewModel);

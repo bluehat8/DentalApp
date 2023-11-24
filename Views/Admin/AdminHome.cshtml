@@ -137,8 +137,7 @@
                                         <li class="dropdown nav-item active">
                                             <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
                                                 <span class="material-icons">notifications</span>
-                                                <span class="notification">6</span>
-                                                   
+                                                <span class="notification">@Model.notificaciones.Count</span>
                                             </a>
                         
                                         </li>
@@ -416,7 +415,7 @@
 
                 <button id="enableEdit" class="ml-2 mb-2 btn btn-secondary">Habilitar Edición</button>
 
-                <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Asistente">
+                <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Admin">
                     <div class="card card-body mb-3">
                         <div class="row">
                             <div class="col-md-6">
@@ -455,6 +454,32 @@
                     </div>
                 </form>
             </div>
+
+
+            <!--Notificaciones-->
+
+            <div id="notificaciones" class="card-body d-none">
+
+                <h2 class="mt-3 ml-2">Notificaciones</h2>
+                @foreach (var item in Model.notificaciones)
+                {
+
+                    <div class="mt-2">
+                        <div class="card bg-light">
+                            <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
+                                <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
+                                <div class="flex-grow-1 ml-2">
+                                    <h5 class="card-title mb-1">@item.Asunto</h5>
+                                    <p class="card-text text-muted">@item.Cuerpo</p>
+                                    <p class="card-text text-muted"><small>@item.FechaCreacion</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!--Notificaciones-->
 
 
                         <!--Gestion de usuario-->
@@ -600,7 +625,7 @@
     <script type="text/javascript">
 
         function hideAllAndShowOne(showId) {
-        var allPanels = ['home-panel','GestionUsuario', 'AgregarUsuario'];
+        var allPanels = ['home-panel','GestionUsuario', 'AgregarUsuario', 'edit-profile'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -647,9 +672,9 @@
         //     hideAllAndShowOne('Mensajeria');
         // });
 
-        // $('#btn-notificaciones').click(function () {
-        //     hideAllAndShowOne('notificaciones');
-        // });
+         $('#btn-notificaciones').click(function () {
+             hideAllAndShowOne('notificaciones');
+         });
 
 
     </script>

@@ -233,12 +233,34 @@
 
 
 
+
             <!--------main-content------------->
 
             <div class="main-content d-none" id="main-content">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="row align-items-end">
+                            <div class="col-md-4">
+                                <label for="tipoCitaFilter">Tipo de Cita:</label>
+                                <select id="tipoCitaFilter" class="form-control">
+                                    <!-- Agrega opciones según tus tipos de citas -->
+                                    <option value="tipo1">Tipo 1</option>
+                                    <option value="tipo2">Tipo 2</option>
+                                    <!-- ... Agrega más opciones según sea necesario -->
+                                </select>
+                            </div>
+                            <!-- Agrega el filtro por calendario -->
+                            <div class="col-md-4">
+                                <label for="calendarioFilter">Fecha de la Cita:</label>
+                                <input type="date" id="calendarioFilter" class="form-control">
+                            </div>
+                            <!-- Agrega el botón de mostrar -->
+                            <div class="col-md-4">
+                                <button id="mostrarBtn" class="btn btn-primary">Mostrar</button>
+                            </div>
+                        </div>
                         <div class="table-wrapper">
+                            
                             <div class="table-title">
                                 <div class="row">
                                     <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
