@@ -20,6 +20,7 @@ namespace DentalApp.Controllers
         private UserService userService;
         private ServicioSolicitarCita cita = new ServicioSolicitarCita();
         private ServicioNotificaciones notificacionesServ;
+        private TipoCitaServices? tipocitaServ;
 
 
 
@@ -40,12 +41,14 @@ namespace DentalApp.Controllers
             Usuario u = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
             userService = new UserService(new ApiClient(httpClient));
             notificacionesServ = new ServicioNotificaciones();
+            tipocitaServ = new TipoCitaServices();
 
 
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
             List<SolicitudCita>? solicitudCita = await ServicioSolicitarCita.ObtenerSolicitudesCitasPorUsuario(u.Id);
             List<SolicitudCita>? citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
             List<Notificaciones?>? notificaciones = await notificacionesServ.ObtenerNotificacionesPorCliente(usuarioactual.Id);
+            List<TipoCita?>? tiposcita = await tipocitaServ.ObtenerTiposCitaAsync();
 
             int TotalRecords = citasFilter.Count();
 
@@ -65,7 +68,8 @@ namespace DentalApp.Controllers
                 TotalRecords = TotalRecords, 
                 TotalPages = TotalPages,
                 PageNumber = 1,
-                notificaciones = notificaciones
+                notificaciones = notificaciones,
+                tipoCitas = tiposcita
             };
 
             return View(viewModel);

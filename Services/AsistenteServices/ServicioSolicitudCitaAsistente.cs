@@ -48,13 +48,13 @@ namespace DentalApp.Services.AsistenteServices
         {
             var httpClient = new HttpClient();
 
-            var url = Constants.apiUrl + "/api/citas/aceptarCita/" + solicitudId;
+            var url = Constants.apiUrl + "/api/citas/RechazarCita/" + solicitudId;
 
             var response = await httpClient.PutAsJsonAsync(url, solicitudId);
 
             if (response.IsSuccessStatusCode)
             {
-                return "Solicitud actualizada correctamente";
+                return "Solicitud rechazada correctamente correctamente";
             }
             else
             {

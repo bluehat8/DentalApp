@@ -20,6 +20,8 @@ namespace DentalApp.Controllers
         private AsistenteServices Asistente;
         private ServicioNotificaciones notificacionesServ;
         private ServicioSolicitudCitaAsistente solicitudService;
+        //private ServicioSolicitudCitaAsistente cita = new ServicioSolicitarCita();
+
 
 
         public AsistenteController()
@@ -95,6 +97,42 @@ namespace DentalApp.Controllers
                 // Manejo de excepciones
                 ViewData["ErrorMessage"] = $"Error interno del servidor: {ex.Message}";
                 return RedirectToAction("DoctorHome", "Doctor");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RechazarCita(int idsolicitud)
+        {
+            solicitudService = new ServicioSolicitudCitaAsistente();
+
+            try
+            {
+                await solicitudService.RechazarSolicitudCita(idsolicitud);
+
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("ClientHome", "Client");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AceptarCita(int idsolicitud)
+        {
+            solicitudService = new ServicioSolicitudCitaAsistente();
+
+            try
+            {
+                await solicitudService.AceptarSolicitudCita(idsolicitud);
+
+                return RedirectToAction("ClientHome", "Client");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return RedirectToAction("ClientHome", "Client");
             }
         }
 

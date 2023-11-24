@@ -16,6 +16,11 @@ namespace DentalApp.Services.User
             _apiClient = apiClient;
         }
 
+        public UserService()
+        {
+
+        }
+
         public async Task<bool> ActualizarUsuarioAsync(int id, Usuario usuario)
         {
             var apiUrl = Constants.apiUrl + $"/api/Usuarios/{id}";
@@ -78,6 +83,41 @@ namespace DentalApp.Services.User
             {
                 Console.WriteLine($"Error: {ex.Message}");
                 return null;
+            }
+        }
+
+
+        public async Task<(int id, string message)> CreateUsuarioAsync(Usuario usuario)
+        {
+            HttpClient client = new HttpClient();
+            var apiUrl = Constants.apiUrl + $"/api/Usuarios/crearUsuario";
+
+
+            try
+            {
+                usuario.Telefono = "1";
+
+                // Serializar el objeto Usuario a formato JSON
+                string jsonUsuario = JsonConvert.SerializeObject(usuario);
+
+                // Configurar la solicitud HTTP
+                var content = new StringContent(jsonUsuario, System.Text.Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(apiUrl, content);
+
+                // Verificar si la solicitud fue exitosa
+                response.EnsureSuccessStatusCode();
+
+                // Leer la respuesta JSON
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeAnonymousType(jsonResponse, new { id = 0, message = "" });
+
+                return (result.id, result.message);
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error que pueda ocurrir durante la solicitud
+                Console.WriteLine($"Error: {ex.Message}");
+                return (0, "Error al realizar la solicitud");
             }
         }
     }

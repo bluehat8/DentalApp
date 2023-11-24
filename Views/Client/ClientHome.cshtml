@@ -62,34 +62,34 @@
 
                 <li>
                     <a href="#homeSubmenu1" id="citas-btn" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">aspect_ratio</i>Citas
+                        <i class="material-icons">event</i>Citas
                     </a>
 
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">apps</i><span>Historial Clinico</span>
+                    <a href="#pageSubmenu2" id="btn-historialClinico" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">insert_chart</i><span>Historial Clinico</span>
                     </a>
 
                 </li>
 
                 <li>
                     <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Pagos</span>
+                        <i class="material-icons">attach_money</i><span>Pagos</span>
                     </a>
 
                 </li>
                 <li>
                     <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Tratamientos</span>
+                        <i class="material-icons">medical_services</i><span>Tratamientos</span>
                     </a>
 
                 </li>
 
                 <li>
                     <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">border_color</i><span>Mensajes</span>
+                        <i class="material-icons">message</i><span>Mensajes</span>
                     </a>
 
                 </li>
@@ -283,7 +283,7 @@
                                             <td>@solicitud.Id</td>
                                             <td>@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
                                             <td>@solicitud.Hora</td>
-                                            <td>@solicitud.Estado</td>
+                                            <td>@solicitud.EstadoValue</td>
                                             <td>@solicitud.MotivoCita</td>
 
                                             <td>
@@ -305,7 +305,6 @@
                                     }
                                 </tbody>
                             </table>
-                            <!-- Agrega el resto de tu paginación y otros elementos según sea necesario -->
                             <div class="clearfix">
                                 <div class="hint-text">Mostrando <b>7</b> de <b>@Model.TotalRecords</b> entradas</div>
                              
@@ -339,7 +338,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Tipo de cita</label>
-                                            <input name="TipoCita" class="form-control" required>
+                                            <select class="form-control prof-inputs" name="TipoCita">
+                                               <option value ="0">Elije una opcion</option>
+                                                @foreach (var item in Model.tipoCitas)
+                                                {
+                                                    <option value="@item.Id">
+                                                        @item.Tipocita
+                                                    </option>
+                                                }
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Motivo</label>
@@ -379,7 +386,18 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Tipo de cita</label>
-                                            <input id="tipocita" type="text" name="TipoCita" class="form-control" required>
+                                            @* <input id="tipocita" type="text" name="TipoCita" class="form-control" required> *@
+
+                                            <select class="form-control prof-inputs" id="tipocita" name="TipoCita">
+                                                <option value="0">Elije una opcion</option>
+
+                                                @foreach (var item in Model.tipoCitas)
+                                                {
+                                                    <option value="@item.Id">
+                                                        @item.Tipocita
+                                                    </option>
+                                                }
+                                            </select>
                                         </div>
 
                                         <div class="form-group">
@@ -454,33 +472,42 @@
             </div>
 
             <!-- Formulario de edición del perfil -->
-            <div id="edit-profile" class="d-none">
+            <div id="edit-profile" class=" mt-5 d-none">
+                <h2 class="text-center">Información de perfil</h2>
+                <button id="enableEdit" class="ml-2 mb-2 btn btn-secondary">Habilitar Edición</button>
+
+
                 <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Client">
                     <div class="card card-body mb-3">
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editFirstName" class="form-label">Nombres:</label>
-                                <input type="text" value="@Model.Usuario.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" asp-for="Usuario.Nombre" required>
+                                <input type="text" value="@Model.Usuario.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" asp-for="Usuario.Nombre" disabled required>
                             </div>
                             <div class="col-md-6">
                                 <label for="editLastName" class="form-label">Apellidos:</label>
-                                <input type="text" value="@Model.Usuario.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" asp-for="Usuario.Apellidos" required>
+                                <input type="text" value="@Model.Usuario.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" asp-for="Usuario.Apellidos" disabled required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editBirthdate" class="form-label">Fecha de nacimiento:</label>
-                                <input type="date" value="@Model.Usuario.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" asp-for="Usuario.FechaNacimiento" required>
+                                <input type="date" value="@Model.Usuario.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" asp-for="Usuario.FechaNacimiento" disabled required>
                             </div>
                             <div class="col-md-6">
                                 <label for="editEmail" class="form-label">Email:</label>
-                                <input type="email" value="@Model.Usuario.Correo" class="form-control prof-inputs" id="editEmail" asp-for="Usuario.Correo" required>
+                                <input type="email" value="@Model.Usuario.Correo" class="form-control prof-inputs" id="editEmail" asp-for="Usuario.Correo" disabled required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editPhone" class="form-label">Teléfono:</label>
-                                <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono">
+                                <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono" disabled>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="editDNI" class="form-label">Cédula:</label>
+                                <input type="tel" value="@Model.Usuario.Cedula" class="form-control prof-inputs" id="editDNI" asp-for="Usuario.Cedula" disabled>
                             </div>
                         </div>
                         <div class="d-grid mt-3">
@@ -509,6 +536,55 @@
                         </div>
                     </div>
                 }
+            </div>
+
+
+        <!--Panel para visualizar historial clinico-->
+
+            <div id="historialClinico" class="mb-5 container mt-5 d-none">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Historial Clínico</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <!-- Historial Clínico -->
+                        <h5 class="card-title">Historial Clínico</h5>
+                        <p class="card-text">Texto de Historial Clínico: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p class="card-text">Observaciones Generales: No presenta malestar.</p>
+
+                        <!-- Deportes -->
+                        <h5 class="card-title fw-bolder mt-2">Deportes</h5>
+                        <p class="card-text">Indica si practica deporte: Sí</p>
+                        <p class="card-text">Indica si presenta malestar: No</p>
+
+                        <!-- Padres -->
+                        <h5 class="card-title fw-bold mt-2">Padres</h5>
+                        <p class="card-text">Enfermedades del Padre: Hipertensión</p>
+                        <p class="card-text">Enfermedades de la Madre: Diabetes</p>
+
+                        <!-- Enfermedades Propias -->
+                        <h5 class="card-title fw-bold mt-2">Enfermedades Propias</h5>
+                        <p class="card-text">Diabético: Sí</p>
+                        <p class="card-text">Problemas Renales: No</p>
+                        <p class="card-text">Presión Alta: No</p>
+                        <p class="card-text">Epileptico: No</p>
+                        <p class="card-text">Otras Enfermedades: Ninguna</p>
+
+                        <!-- Operaciones -->
+                        <h5 class="card-title fw-bold mt-2">Operaciones</h5>
+                        <p class="card-text">Tuvo operaciones: Sí</p>
+                        <p class="card-text">Detalle de la operación: Cirugía de apéndice</p>
+
+                        <!-- Salud Dental -->
+                        <h5 class="card-title fw-bold mt-2">Información odontológica</h5>
+                        <p class="card-text">Estado Bucal: Bueno</p>
+                        <p class="card-text">Caries: No</p>
+                        <p class="card-text">Dientes Fracturados: No</p>
+                        <p class="card-text">Sangrado de Encías: No</p>
+
+                    </div>
+                </div>
             </div>
 
      
@@ -567,7 +643,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'notificaciones'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'notificaciones', 'historialClinico'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -591,6 +667,9 @@
 
         $('#btn-notificaciones').click(function () {
             hideAllAndShowOne('notificaciones');
+        });
+        $('#btn-historialClinico').click(function () {
+            hideAllAndShowOne('historialClinico');
         });
 
 
@@ -688,6 +767,15 @@
     </script>
 
 
+    <script>
+        $(document).ready(function () {
+            // Al hacer clic en el botón para habilitar la edición
+            $('#enableEdit').on('click', function () {
+                // Habilitar todos los campos del formulario
+                $('#editProfileForm input, #editProfileForm select').prop('disabled', false);
+            });
+        });
+    </script>
 
 </body>
 

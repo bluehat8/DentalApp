@@ -30,6 +30,13 @@ namespace DentalApp.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            Usuario usuario = new Usuario();
+
+            return View("Register", usuario);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(Usuario u)
         {
@@ -91,6 +98,39 @@ namespace DentalApp.Controllers
             {
                 ViewBag.Error = e.Message;
                 return View();
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> RegistrarCuenta(Usuario u)
+        {
+            UserService userService = new UserService();
+            HttpClient httpClient = await TokenAuthentication.AutenticarConTokenAsync();
+            LoginService login = new LoginService(new ApiClient(httpClient));
+            u.Rol = 1;
+            var response = await userService.CreateUsuarioAsync(u);
+
+            try
+            {
+
+                if (response.id != 0)
+                {           
+                    return RedirectToAction("Index", "Home");          
+                }
+                else
+                {
+                    ViewBag.Error = response.message;
+                }
+
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return RedirectToAction("Index", "Home");
             }
         }
 

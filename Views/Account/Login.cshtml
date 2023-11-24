@@ -67,28 +67,44 @@
         color: #ff3d3d;
     }
 
+    .btn-google-light {
+        background-color: #f0f0f0; /* Color de fondo más claro */
+        color: #4285f4; /* Color de texto de Google */
+        border: 1px solid #4285f4; /* Borde del mismo color que el texto de Google */
+    }
+
+    .btn-google-light:hover {
+            background-color: #e1e1e1; /* Cambia el color de fondo en el hover */
+    }
+
 </style>
 
 
 <div class="form-container mb-5">
-
     <form method="post" asp-action="Login" class="p-5 border rounded" asp-controller="Account">
-        <h1 class="h3 mb-3 text-center" style="color:whitesmoke">Inicio de sesión</h1>
-        <div class="form-floating my-3">
+        <h1 class="h3 mb-3 text-center text-light">Inicio de sesión</h1>
+        <div class="mb-3">
+            <label for="UserName" class="form-label">Usuario o correo</label>
             <input type="text" class="form-control" required asp-for="Username" />
-            <label for="UserName">Username</label>
         </div>
-        <div class="form-floating my-3">
+        <div class="mb-3">
+            <label for="Password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" required asp-for="Contraseña" />
-            <label for="Password">Password</label>
         </div>
-        <div class=" checkbox mb-3">
-            <label>
-                <input type="checkbox" asp-for="keepActive" /> Recordar sesión
-            </label>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" asp-for="keepActive" />
+            <label class="form-check-label" for="keepActive">Recordar sesión</label>
         </div>
         <button type="submit" class="btn btn-lg btn-primary w-100 my-3">Ingresar</button>
-        <label class="alert-danger">@ViewBag.Error</label>
-    </form>
+        <div class="text-danger">@ViewBag.Error</div>
 
+        <a href="#" class="btn btn-lg btn-outline-dark text-light w-100 my-3">
+            <i class="fab fa-google me-2"></i> Iniciar sesión con Google
+        </a>
+
+        <!-- Botón para registrarse -->
+        <a class="btn btn-lg btn-outline-secondary w-100 my-3" asp-controller="Account" asp-action="Register">
+            Registrarse
+        </a>
+    </form>
 </div>

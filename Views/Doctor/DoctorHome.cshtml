@@ -444,37 +444,41 @@
 
             <!-- Formulario de edición del perfil -->
             <div id="edit-profile" class="mt-5 d-none">
+                <h2 class="text-center">Información de perfil</h2>
+
+                <button id="enableEdit" class="ml-2 mb-2 btn btn-secondary">Habilitar Edición</button>
+
                 <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Doctor">
                     <div class="card card-body mb-3">
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editFirstName" class="form-label">Nombres:</label>
-                                <input type="text" value="@Model.Usuario.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" asp-for="Usuario.Nombre" required>
+                                <input type="text" value="@Model.Usuario.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" asp-for="Usuario.Nombre" disabled required>
                             </div>
                             <div class="col-md-6">
                                 <label for="editLastName" class="form-label">Apellidos:</label>
-                                <input type="text" value="@Model.Usuario.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" asp-for="Usuario.Apellidos" required>
+                                <input type="text" value="@Model.Usuario.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" asp-for="Usuario.Apellidos" disabled required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editBirthdate" class="form-label">Fecha de nacimiento:</label>
-                                <input type="date" value="@Model.Usuario.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" asp-for="Usuario.FechaNacimiento" required>
+                                <input type="date" value="@Model.Usuario.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" asp-for="Usuario.FechaNacimiento" disabled required>
                             </div>
                             <div class="col-md-6">
                                 <label for="editEmail" class="form-label">Email:</label>
-                                <input type="email" value="@Model.Usuario.Correo" class="form-control prof-inputs" id="editEmail" asp-for="Usuario.Correo" required>
+                                <input type="email" value="@Model.Usuario.Correo" class="form-control prof-inputs" id="editEmail" asp-for="Usuario.Correo" disabled required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="editPhone" class="form-label">Teléfono:</label>
-                                <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono">
+                                <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono" disabled>
                             </div>
                             <div class="col-md-6">
                                 <label for="editEspecialidad" class="form-label">Especialidad:</label>
 
-                                <select class="form-control prof-inputs" id="editEspecialidad" asp-for="@Model.Usuario.Especialidad">
+                                <select class="form-control prof-inputs" id="editEspecialidad" asp-for="@Model.Usuario.Especialidad" disabled>
                                     @foreach (var item in Model.Especialidades)
                                     {
                                         <option value="@item.ID" selected="@((item.ID == Model._Doctor.Especialidad))">
@@ -483,6 +487,14 @@
                                     }
                                 </select>
                             </div>
+                        </div>
+
+                        <div class="row">
+
+                        <div class="col-md-6">
+                            <label for="editDNI" class="form-label">Cédula:</label>
+                            <input type="tel" value="@Model.Usuario.Cedula" class="form-control prof-inputs" id="editDNI" asp-for="Usuario.Cedula" disabled>
+                        </div>
                         </div>
 
                         <div class="d-grid mt-3">
@@ -550,6 +562,16 @@
             document.getElementById('main-content').classList.add('d-none');
             document.getElementById('home-panel').classList.remove('d-none');
             document.getElementById('edit-profile').classList.add('d-none');
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Al hacer clic en el botón para habilitar la edición
+            $('#enableEdit').on('click', function () {
+                // Habilitar todos los campos del formulario
+                $('#editProfileForm input, #editProfileForm select').prop('disabled', false);
+            });
         });
     </script>
 

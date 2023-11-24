@@ -1,0 +1,120 @@
+﻿@using DentalApp.Models
+
+@model Usuario
+
+
+
+<style>
+    body {
+        background-color: #171a21;
+    }
+
+
+
+    .card-header {
+        background-color: #282c37;
+        border-color: #282c37;
+    }
+
+    label {
+        color: #c5c7cd;
+    }
+
+    .form-control {
+        background-color: #282c37;
+        color: #c5c7cd;
+        border: 1px solid #282c37;
+    }
+
+        .form-control:focus,
+        label:focus {
+            color: #c5c7cd;
+            background-color: #282c37;
+            border-color: #282c37;
+        }
+
+    .btn-primary {
+        background-color: #2f8ef7;
+        border-color: #2f8ef7;
+    }
+
+        .btn-primary:hover {
+            background-color: #1c5ca9;
+            border-color: #1c5ca9;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #525b65;
+            border-color: #525b65;
+        }
+
+    .text-danger {
+        color: #ff3d3d;
+    }
+</style>
+
+<div class="container mt-5 mb-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-transparent border rounded border-secondary text-white">
+                <div class="card-header">
+                    <h2 class="text-center">Registro</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="RegistrarCuenta" asp-controller="Account">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputNombres">Nombres</label>
+                                <input type="text" class="form-control" id="inputNombres" asp-for="Nombre" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputApellidos">Apellidos</label>
+                                <input type="text" class="form-control" id="inputApellidos" asp-for="Apellidos" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputFechaNacimiento">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" id="inputFechaNacimiento" asp-for="FechaNacimiento" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputCedula">Cédula</label>
+                                <input type="text" class="form-control" id="inputCedula" asp-for="Cedula" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputTelefono">Teléfono</label>
+                                <input type="tel" class="form-control" id="inputTelefono" asp-for="Telefono">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputUsuario">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="inputUsuario" asp-for="Username" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="inputEmail" asp-for="Correo" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword">Contraseña</label>
+                                <input type="password" class="form-control" id="inputPassword" asp-for="Contraseña" required>
+                            </div>
+                        </div>
+                        <div class="text-danger">@ViewBag.Error</div>
+
+
+                        <button type="submit" class="mt-2 btn btn-primary btn-block">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

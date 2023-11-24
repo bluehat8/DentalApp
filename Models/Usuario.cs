@@ -25,7 +25,7 @@ namespace DentalApp.Models
 
         public string? FechaNacimiento { get; set; }
 
-        public string Cedula { get; set; } = null!;
+        public string? Cedula { get; set; } = null!;
 
         public DateTime FechaCreacion { get; set; }
 
