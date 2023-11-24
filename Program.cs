@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         option.LoginPath = "/Account/Login";
     });
+
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationFormats.Add("/Views/{1}/{0}.cshtml");
+    options.ViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+    options.ViewLocationFormats.Add("/Views/PartialViews/{0}.cshtml"); // Agrega esta línea
+});
 
 builder.Services.AddSession(options =>
 {

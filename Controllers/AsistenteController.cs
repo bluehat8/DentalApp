@@ -16,10 +16,10 @@ namespace DentalApp.Controllers
 {
     public class AsistenteController : Controller
     {
-        private UserService userService;
-        private AsistenteServices Asistente;
-        private ServicioNotificaciones notificacionesServ;
-        private ServicioSolicitudCitaAsistente solicitudService;
+        private UserService? userService;
+        private AsistenteServices? Asistente;
+        private ServicioNotificaciones? notificacionesServ;
+        private ServicioSolicitudCitaAsistente? solicitudService;
         //private ServicioSolicitudCitaAsistente cita = new ServicioSolicitarCita();
 
 

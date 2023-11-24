@@ -1,0 +1,21 @@
+﻿@model DentalApp.Models.View.ChatViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h5>Mensajes - @Model.UserName</h5>
+    </div>
+    <div class="card-body" style="height: 300px; overflow-y: auto;">
+        <!-- Burbujas de mensajes aquí -->
+        @foreach (var mensaje in Model.Mensajes)
+        {
+            <div class="mb-2">@mensaje</div>
+        }
+    </div>
+    <div class="card-footer">
+        <!-- Entrada de mensaje -->
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+            <button class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+</div>

@@ -551,37 +551,42 @@
                         <!-- Historial Clínico -->
                         <h5 class="card-title">Historial Clínico</h5>
                         <p class="card-text">Texto de Historial Clínico: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <p class="card-text">Observaciones Generales: No presenta malestar.</p>
-
+                        <p class="card-text">Observaciones Generales: @Model.historialClinico.Observaciones</p>
+                        <hr />
                         <!-- Deportes -->
                         <h5 class="card-title fw-bolder mt-2">Deportes</h5>
-                        <p class="card-text">Indica si practica deporte: Sí</p>
-                        <p class="card-text">Indica si presenta malestar: No</p>
+                        <p class="card-text">Indica si practica deporte: @(Model.historialClinico.Deporte == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Indica si presenta malestar: @(Model.historialClinico.MalestarDeporte == 1 ? "Sí" : "No")</p>
+                        <hr />
 
                         <!-- Padres -->
                         <h5 class="card-title fw-bold mt-2">Padres</h5>
-                        <p class="card-text">Enfermedades del Padre: Hipertensión</p>
-                        <p class="card-text">Enfermedades de la Madre: Diabetes</p>
+                        <p class="card-text">Enfermedades del Padre: @Model.historialClinico.EnfermedadPadre</p>
+                        <p class="card-text">Enfermedades de la Madre: @Model.historialClinico.EnfermedadMadre</p>
+                        <hr />
 
                         <!-- Enfermedades Propias -->
                         <h5 class="card-title fw-bold mt-2">Enfermedades Propias</h5>
-                        <p class="card-text">Diabético: Sí</p>
-                        <p class="card-text">Problemas Renales: No</p>
-                        <p class="card-text">Presión Alta: No</p>
-                        <p class="card-text">Epileptico: No</p>
-                        <p class="card-text">Otras Enfermedades: Ninguna</p>
+                        <p class="card-text">Diabético: @(Model.historialClinico.Diabetico == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Problemas Renales: @(Model.historialClinico.ProblemaRenales == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Presión Alta: @(Model.historialClinico.PresionAlta == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Epileptico: @(Model.historialClinico.Epileptico == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Otras Enfermedades: @Model.historialClinico.OtrasEnfermedades</p>
+                        <hr />
 
                         <!-- Operaciones -->
                         <h5 class="card-title fw-bold mt-2">Operaciones</h5>
-                        <p class="card-text">Tuvo operaciones: Sí</p>
-                        <p class="card-text">Detalle de la operación: Cirugía de apéndice</p>
+                        <p class="card-text">Tuvo operaciones: @(Model.historialClinico.Operado == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Detalle de la operación: @Model.historialClinico.DetalleOperacion</p>
+                        <hr />
 
                         <!-- Salud Dental -->
                         <h5 class="card-title fw-bold mt-2">Información odontológica</h5>
-                        <p class="card-text">Estado Bucal: Bueno</p>
-                        <p class="card-text">Caries: No</p>
-                        <p class="card-text">Dientes Fracturados: No</p>
-                        <p class="card-text">Sangrado de Encías: No</p>
+                        <p class="card-text">Estado Bucal: @Model.historialClinico.EstadoBucal</p>
+                        <p class="card-text">Caries: @(Model.historialClinico.Caries == 1 ? "Sí" : "No")</p>
+                        <p class="card-text">Dientes Fracturados: @(Model.historialClinico.DientesFracturados == "1" ? "Sí" : "No")</p>
+                        <p class="card-text">Sangrado de Encías: @(Model.historialClinico.SangraEncimas == "1" ? "Sí" : "No")</p>
+                        <hr />
 
                     </div>
                 </div>
@@ -877,15 +882,16 @@
                                         <input type="text" class="form-control mb-3" placeholder="Buscar usuario">
                                         <!-- Lista de usuarios -->
                                         <ul class="list-group">
-
-                                            <li class="active list-group-item">
-                                                <a href="#" id="" class="text-light">
-                                                    José García
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item">Test user</li>
-                                            <li class="list-group-item">test User2</li>
-                                            <!-- Puedes agregar más usuarios aquí -->
+                                            @foreach(var item in Model.listUsuarios){
+                                                <li class="list-group-item">
+                                                    <a href="#"  data-id="@item.Id" class="text-dark">
+                                                        @item.Nombre @item.Apellidos
+                                                    </a>
+                                                </li>
+                                              @*   <li class="list-group-item">Test user</li>
+                                                <li class="list-group-item">test User2</li>
+                                                <!-- Puedes agregar más usuarios aquí --> *@
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -893,11 +899,11 @@
                         </div>
                     </div>
 
-                    <!-- Área de Chat -->
+                    @* <!-- Área de Chat -->
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                Mensajes - José García
+                                <h5 id="chat-panel-title">Mensajes - José García</h5>
                             </div>
                             <div class="card-body" style="height: 300px; overflow-y: auto;">
                                 <!-- Burbujas de mensajes aquí -->
@@ -909,7 +915,29 @@
                                 <!-- Entrada de mensaje -->
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Escribe un mensaje...">
-                                    <button class="btn btn-primary">Enviar</button>
+                                    <button id="enviar-button" class="btn btn-primary" data-id-usuario="">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
+
+                    <!-- Área de Chat -->
+                    <div class="col-md-8">
+                        <div id="chat-partial-cont" class="card">
+                            <div class="card-header">
+                                <h5 id="chat-panel-title">Mensajes - @Model.Usuario.Nombre</h5>
+                            </div>
+                            <div class="card-body" style="height: 300px; overflow-y: auto;">
+                                <!-- Renderizar la vista parcial aquí -->
+                                <div id="chat-partial-container">
+                                   @*  @Html.Partial("_ChatPartial", Model.ChatViewModel) *@
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <!-- Entrada de mensaje -->
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+                                    <button id="enviar-button" class="btn btn-primary" data-id-usuario="">Enviar</button>
                                 </div>
                             </div>
                         </div>
@@ -1110,6 +1138,69 @@
             $('#enableEdit').on('click', function () {
                 // Habilitar todos los campos del formulario
                 $('#editProfileForm input, #editProfileForm select').prop('disabled', false);
+            });
+        });
+    </script>
+
+
+    <!--Seccion de mensajeria-->
+
+    @* <script>
+        function handleUserClick(event) {
+            event.preventDefault();
+
+            // Obtener el elemento en el que se hizo clic
+            var clickedElement = event.target;
+
+            // Obtener el nombre y el ID del usuario desde los atributos de datos
+            var userName = clickedElement.innerText.trim();
+            var userId = clickedElement.getAttribute('data-id');
+
+            // Actualizar el título del panel de chat
+            var chatPanelTitle = document.getElementById('chat-panel-title');
+            chatPanelTitle.innerText = 'Mensajes - ' + userName;
+
+            // Actualizar el atributo personalizado del botón de enviar con el ID del usuario
+            var enviarButton = document.getElementById('enviar-button');
+            enviarButton.setAttribute('data-id-usuario', userId);
+
+            // Mostrar el panel de mensajería si está oculto
+            var pnlMensajeria = document.getElementById('pnl-mensajeria');
+            if (pnlMensajeria.classList.contains('d-none')) {
+                pnlMensajeria.classList.remove('d-none');
+            }
+        }
+
+        // Agregar el evento de clic a todos los enlaces de usuario
+        var userLinks = document.querySelectorAll('.user-list a');
+        userLinks.forEach(function (link) {
+            link.addEventListener('click', handleUserClick);
+        });
+    </script> *@
+
+    <script>
+        $(document).ready(function () {
+            // Manejar el clic en un enlace de usuario
+            $('.user-list a').on('click', function (event) {
+                event.preventDefault();
+
+                // Obtener el ID del usuario
+                var userId = $(this).data('id');
+
+                // Realizar una solicitud AJAX para obtener los mensajes del usuario
+                $.ajax({
+                    url: '/Client/ObtenerMensajesUsuario',
+                    type: 'GET',
+                    data: { userId: userId }, // Pasar el ID del usuario como parámetro
+                    success: function (result) {
+                        // Renderizar la vista parcial con los mensajes del usuario
+                        console.log("Funciona");
+                        $('#chat-partial-cont').html(result);
+                    },
+                    error: function (error) {
+                        console.error('Error al obtener mensajes del usuario:', error);
+                    }
+                });
             });
         });
     </script>

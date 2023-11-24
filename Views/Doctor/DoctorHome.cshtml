@@ -60,36 +60,30 @@
                 </li>
 
 
-                <li>
+                @* <li>
                     <a href="#homeSubmenu1" id="citas-btn" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">aspect_ratio</i>Citas
                     </a>
 
-                </li>
+                </li> *@
 
                 <li>
-                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">apps</i><span>Historial Clinico</span>
+                    <a href="#pageSubmenu2" id="Historial-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">insert_chart</i><span>Historial Clínico</span>
                     </a>
-
                 </li>
 
-                <li>
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Pagos</span>
-                    </a>
-
-                </li>
+             
                 <li>
                     <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">extension</i><span>Tratamientos</span>
+                        <i class="material-icons">medical_services</i><span>Tratamientos</span>
                     </a>
 
                 </li>
 
                 <li>
                     <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
-                        <i class="material-icons">border_color</i><span>Mensajes</span>
+                        <i class="material-icons">medical_services</i><span>Progreso tratamiento</span>
                     </a>
 
                 </li>
@@ -149,11 +143,11 @@
                                 <nav class="navbar p-0">
                                     <ul class="nav navbar-nav flex-row ml-auto">
                                         <li class="dropdown nav-item active">
-                                            <a href="#" class="nav-link" data-toggle="dropdown">
+                                            <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
                                                 <span class="material-icons">notifications</span>
-                                                <span class="notification">4</span>
+                                                <span class="notification">@Model.notificaciones.Count</span>
                                             </a>
-                                            <ul class="dropdown-menu">
+                                            @* <ul class="dropdown-menu">
                                                 <li>
                                                     <a href="#">You have 5 new messages</a>
                                                 </li>
@@ -167,14 +161,9 @@
                                                     <a href="#">5 warnings in Server Console</a>
                                                 </li>
 
-                                            </ul>
+                                            </ul> *@
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="material-icons">question_answer</span>
 
-                                            </a>
-                                        </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
                                                 <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
@@ -504,11 +493,160 @@
                 </form>
             </div>
 
-            <footer class="fixed-bottom border-top bg-dark text-white text-center py-3">
-                <div class="container">
-                    &copy; 2023 - DentalApp - <a href="#" class="text-white">Privacy</a>
+
+            <!--Gestionar historial clinico-->
+
+            <div id="gestionarHistorial" class="container mt-5 d-none">
+
+                <!-- Panel de Acciones -->
+                <div class="card">
+                    <div class="card-header">
+                        Acciones
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="buscar">Buscar por Cédula o Nombre:</label>
+                            <input type="text" class="form-control" id="buscar" placeholder="Ingrese cédula o nombre">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="acompanante">
+                            <label class="form-check-label" for="acompanante">Buscar por acompañante</label>
+                        </div>
+                        <button class="btn btn-primary mt-3">Filtrar Paciente</button>
+                    </div>
                 </div>
-            </footer>
+
+            <!-- Panel de Historial Clínico -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    Historial Clínico del Paciente
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="nombrePaciente">Nombre del paciente</label>
+                        <input type="text" class="form-control" id="nombrePaciente">
+                    </div>
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones Generales:</label>
+                        <input type="text" class="form-control" id="observaciones">
+                    </div>
+
+                    <!-- Subtitulo de Deportes -->
+                    <h5 class="mt-4">Deportes</h5>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="practicaDeporte">
+                        <label class="form-check-label" for="practicaDeporte">Practica Deporte</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="malestarDeporte">
+                        <label class="form-check-label" for="malestarDeporte">Presenta Malestar al Deportar</label>
+                    </div>
+
+                    <!-- Subtitulo de Padres -->
+                    <h5 class="mt-4">Padres</h5>
+                    <div class="form-group">
+                        <label for="enfermedadesPadre">Enfermedades del Padre:</label>
+                        <input type="text" class="form-control" id="enfermedadesPadre">
+                    </div>
+                    <div class="form-group">
+                        <label for="enfermedadesMadre">Enfermedades de la Madre:</label>
+                        <input type="text" class="form-control" id="enfermedadesMadre">
+                    </div>
+
+                    <!-- Subtitulo de Enfermedades Propias -->
+                    <h5 class="mt-4">Enfermedades Propias</h5>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="diabetico">
+                        <label class="form-check-label" for="diabetico">Diabético</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="problemasRenales">
+                        <label class="form-check-label" for="problemasRenales">Problemas Renales</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="presionAlta">
+                        <label class="form-check-label" for="presionAlta">Presión Alta</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="epileptico">
+                        <label class="form-check-label" for="epileptico">Epileptico</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="otrasEnfermedades">Otras Enfermedades:</label>
+                        <input type="text" class="form-control" id="otrasEnfermedades">
+                    </div>
+
+                    <!-- Subtitulo de Operaciones -->
+                    <h5 class="mt-4">Operaciones</h5>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="operaciones">
+                        <label class="form-check-label" for="operaciones">Ha tenido operaciones</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="detalleOperacion">Detalle de la Operación:</label>
+                        <input type="text" class="form-control" id="detalleOperacion">
+                    </div>
+
+                    <!-- Subtitulo de Salud Dental -->
+                    <h5 class="mt-4">Salud Dental</h5>
+                    <div class="form-group">
+                        <label for="estadoBucal">Estado Bucal:</label>
+                        <textarea class="form-control" id="estadoBucal" rows="2"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="caries">
+                        <label class="form-check-label" for="caries">Caries</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="dientesFracturados">
+                        <label class="form-check-label" for="dientesFracturados">Dientes Fracturados</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="sangradoEncias">
+                        <label class="form-check-label" for="sangradoEncias">Sangrado de Encías</label>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="mt-4">
+                        <button class="btn btn-success">Guardar</button>
+                        <button class="btn btn-secondary">Cancelar</button>
+                        <button class="btn btn-danger">Dar de Baja</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!--End historial clinico-->
+
+        <!--Notificaciones-->
+
+            <div id="notificaciones" class="card-body d-none">
+
+                <h2 class="mt-3 ml-2">Notificaciones</h2>
+                @foreach (var item in Model.notificaciones)
+                {
+
+                    <div class="mt-2">
+                        <div class="card bg-light">
+                            <div class="card-body d-flex" style="border-left: 6px solid #007BFF">
+                                <img class="mt-1" src="@Url.Content("~/images/usuario.png")" style="width:20px; height: 20px ; border-radius:50%;" />
+                                <div class="flex-grow-1 ml-2">
+                                    <h5 class="card-title mb-1">@item.Asunto</h5>
+                                    <p class="card-text text-muted">@item.Cuerpo</p>
+                                    <p class="card-text text-muted"><small>@item.FechaCreacion</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!--Notificaciones-->
+
+
+
         </div>
     </div>
 
@@ -538,7 +676,7 @@
 
     </script>
 
-    <script type="text/javascript">
+@*     <script type="text/javascript">
         document.getElementById('editProfileLink').addEventListener('click', function () {
 
             document.getElementById('main-content').classList.add('d-none');
@@ -563,6 +701,45 @@
             document.getElementById('home-panel').classList.remove('d-none');
             document.getElementById('edit-profile').classList.add('d-none');
         });
+    </script> *@
+
+    <script type="text/javascript">
+
+
+
+        function hideAllAndShowOne(showId) {
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'gestionarHistorial', 'notificaciones'];
+
+            allPanels.forEach(function (panelId) {
+                $('#' + panelId).addClass('d-none');
+            });
+
+            $('#' + showId).removeClass('d-none');
+        }
+
+        $('#editProfileLink').click(function () {
+            hideAllAndShowOne('edit-profile');
+
+        });
+
+        $('#citas-btn').click(function () {
+            hideAllAndShowOne('main-content');
+        });
+
+
+        $('#dashboard-btn').click(function () {
+            hideAllAndShowOne('home-panel');
+        });
+
+        $('#Historial-btn').click(function () {
+            hideAllAndShowOne('gestionarHistorial');
+        });
+
+        $('#btn-notificaciones').click(function () {
+             hideAllAndShowOne('notificaciones');
+        });
+
+
     </script>
 
     <script>

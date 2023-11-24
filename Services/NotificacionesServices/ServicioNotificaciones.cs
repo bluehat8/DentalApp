@@ -40,14 +40,14 @@ namespace DentalApp.Services.NotificacionesServices
                 {
                     string jsonResponse = await httpClient.GetStringAsync(apiUrl);
 
-                    List<Notificaciones>? notificaciones = JsonConvert.DeserializeObject<List<Notificaciones>>(jsonResponse);
+                    List<Notificaciones?>? notificaciones = JsonConvert.DeserializeObject<List<Notificaciones>>(jsonResponse);
 
                     return notificaciones;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}");
-                    return new List<Notificaciones>();
+                    return new List<Notificaciones?>();
 
                 }
             }

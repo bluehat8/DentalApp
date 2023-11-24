@@ -12,14 +12,18 @@ using System.Globalization;
 using System.Drawing.Printing;
 using System.Reflection;
 using DentalApp.Services.NotificacionesServices;
+using DentalApp.Services.HistorialClinicoServ;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace DentalApp.Controllers
 {
     public class ClientController : Controller
     {
-        private UserService userService;
-        private ServicioSolicitarCita cita = new ServicioSolicitarCita();
-        private ServicioNotificaciones notificacionesServ;
+        private UserService? userService;
+        private ServicioSolicitarCita? cita = new ServicioSolicitarCita();
+        private ServicioNotificaciones? notificacionesServ;
         private TipoCitaServices? tipocitaServ;
 
 
@@ -42,13 +46,17 @@ namespace DentalApp.Controllers
             userService = new UserService(new ApiClient(httpClient));
             notificacionesServ = new ServicioNotificaciones();
             tipocitaServ = new TipoCitaServices();
+            HistorialClinicoService historialService = new HistorialClinicoService();
 
 
+            //Objetos a renderizar
             Usuario? usuarioactual = await userService.ObtenerUsuarioAsync(u.Id);
+            List<Usuario?>? listusuario = await userService.ObtenerUsuariosPorRoles(u.Id);
             List<SolicitudCita>? solicitudCita = await ServicioSolicitarCita.ObtenerSolicitudesCitasPorUsuario(u.Id);
             List<SolicitudCita>? citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
             List<Notificaciones?>? notificaciones = await notificacionesServ.ObtenerNotificacionesPorCliente(usuarioactual.Id);
             List<TipoCita?>? tiposcita = await tipocitaServ.ObtenerTiposCitaAsync();
+            HistorialClinico? historialClinico = await historialService.ObtenerHistorialClinico(usuarioactual.Id);
 
             int TotalRecords = citasFilter.Count();
 
@@ -69,7 +77,9 @@ namespace DentalApp.Controllers
                 TotalPages = TotalPages,
                 PageNumber = 1,
                 notificaciones = notificaciones,
-                tipoCitas = tiposcita
+                tipoCitas = tiposcita,
+                historialClinico = historialClinico,
+                listUsuarios = listusuario,
             };
 
             return View(viewModel);
@@ -222,6 +232,60 @@ namespace DentalApp.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult> ObtenerMensajesUsuario(int userId)
+        {
+            HttpClient client = new HttpClient();
+            userService = new UserService(new ApiClient(client));
+            var mensajes = new List<string> { "Hola", "Mensaje de prueba" };
+
+            var usuario = await userService.ObtenerUsuarioAsync(userId);
+
+            // Crear el ViewModel para la vista parcial
+            var chatViewModel = new ChatViewModel
+            {
+                UserName = $"{usuario.Nombre} {usuario.Apellidos}",
+                Mensajes = mensajes
+            };
+
+            // Renderizar la vista parcial y convertirla en una cadena
+            var partialView = this.RenderPartialViewToString("_ChartPartial", chatViewModel);
+
+            // Retornar la cadena HTML como resultado
+            return Content(partialView);
+        }
+
+        public string RenderPartialViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                try
+                {
+                    var engine = HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+                    var viewResult = engine.FindView(ControllerContext, viewName, false);
+
+                    var viewContext = new ViewContext(
+                        ControllerContext,
+                        viewResult.View,
+                        ViewData,
+                        TempData,
+                        sw,
+                        new HtmlHelperOptions()
+                    );
+
+                    viewResult.View.RenderAsync(viewContext).Wait();
+                    return sw.GetStringBuilder().ToString();
+                }
+                catch (Exception ex)
+                {
+                    // Manejar la excepción aquí
+                    // Por ejemplo, puedes imprimir el mensaje de error en la consola
+                    Console.WriteLine("Error al renderizar la vista parcial: " + ex.Message);
+                    return string.Empty; // Otra acción para manejar el error según tu necesidad
+                }
+            }
+        }
 
 
     }

@@ -9,7 +9,7 @@ namespace DentalApp.Services.User
 {
     public class UserService
     {
-        private readonly ApiClient _apiClient;
+        private readonly ApiClient? _apiClient;
 
         public UserService(ApiClient apiClient)
         {
@@ -118,6 +118,31 @@ namespace DentalApp.Services.User
                 // Manejar cualquier error que pueda ocurrir durante la solicitud
                 Console.WriteLine($"Error: {ex.Message}");
                 return (0, "Error al realizar la solicitud");
+            }
+        }
+
+
+        public async Task<List<Usuario?>?>? ObtenerUsuariosPorRoles(int usuarioId)
+        {
+            string apiUrl = Constants.apiUrl + "/api/Mensajes/ObtenerUsuariosConRoles/" + usuarioId;
+            List<Usuario?>? usuarios = new List<Usuario?>();
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    string jsonResponse = await httpClient.GetStringAsync(apiUrl);
+
+                    usuarios = JsonConvert.DeserializeObject<List<Usuario>>(jsonResponse);
+
+                    return usuarios;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    return usuarios;
+
+                }
             }
         }
     }

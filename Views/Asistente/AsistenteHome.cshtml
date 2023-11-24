@@ -802,33 +802,68 @@
           
             <!-- END CSS MENSAJERIA-->
             <!--Mensajeria-->
-            <div id="Mensajeria" class="container-fluid d-none vh-100">
-                <div class="row h-100 mt-4">
-                    <!-- Div Izquierdo -->
-                    <div class="col-md-4 bg-custom-green">
-                        <h2 class="mb-4">Panel de Bandeja</h2>
-                        <div class="mb-3 mt-4">
-                            <input type="text" class="form-control mb-2" placeholder="Agregar nuevo chat" style="margin-bottom: 10px;">
-                            <button type="button" class="btn btn-primary d-block mx-auto  mb-3">Agregar</button>
-                        </div>
-                        <label for="listaUsuarios" class="form-label d-block text-center mb-2" style="margin-top:60px;">Lista de Usuarios</label>
-                        <div class="text-center mt-4 mb-4">
-                            <input type="text" id="buscarUsuario" class="form-control mb-2" placeholder="Buscar usuario">
-                            <button type="button" class="btn btn-secondary">Nombre del Usuario</button>
-                        </div>
-                    </div>
-                    <!-- Div Derecho -->
-                    <div class="col-md-8 d-flex flex-column">
-                        <h2 class="mb-4">Panel de Mensajería</h2>
-                        <div class="mb-3 text-center">
-                            <p>Datos del mensaje recibido o enviado</p>
-                        </div>
-                        <div class="input-group mt-auto">
-                            <input type="text" class="form-control" placeholder="Escribe tu mensaje aquí">
-                            <button class="btn btn-primary" type="button">Enviar</button>
+            <div id="Mensajeria" class="container-fluid d-none mt-2">
+                <div class="row">
+                    <!-- Lista de Conversaciones -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5>Usuarios</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Input para buscar nuevo usuario -->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Buscar usuario">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">Buscar</button>
+                                    </div>
+                                </div>
+                                <!-- Boton para agregar usuario -->
+                                <button class="btn btn-success mb-3">Agregar Usuario</button>
+                                <!-- Subpanel de lista de usuarios -->
+                                <div class="card">
+                                    <div class="card-body user-list">
+                                        <!-- Input para buscar usuario en la lista -->
+                                        <input type="text" class="form-control mb-3" placeholder="Buscar usuario">
+                                        <!-- Lista de usuarios -->
+                                        <ul class="list-group">
+
+                                            <li class="active list-group-item">
+                                                <a href="#" id="" class="text-light">
+                                                    José García
+                                                </a>
+                                            </li>
+                                            <li class="list-group-item">Test user</li>
+                                            <li class="list-group-item">test User2</li>
+                                            <!-- Puedes agregar más usuarios aquí -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Área de Chat -->
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                Mensajes - José García
+                            </div>
+                            <div class="card-body" style="height: 300px; overflow-y: auto;">
+                                <!-- Burbujas de mensajes aquí -->
+                                <div class="mb-2">José García: Hola</div>
+                                <div class="mb-2 text-lg-end">Tú: Mensaje de prueba</div>
+                                <!-- Agrega más mensajes según sea necesario -->
+                            </div>
+                            <div class="card-footer">
+                                <!-- Entrada de mensaje -->
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+                                    <button class="btn btn-primary">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
