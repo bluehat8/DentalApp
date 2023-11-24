@@ -23,7 +23,7 @@ namespace DentalApp
 
         public static Usuario? actualuser {  get; set; }
 
-        public static string apiUrl = "https://localhost:7247";
+        public static string apiUrl = "http://dentalcliniczero.somee.com";
         public static string loginEndpoint = "/api/Usuarios/api/Login";
 
 
