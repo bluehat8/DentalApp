@@ -75,20 +75,20 @@
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu3" id="btn-pagos" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">attach_money</i><span>Pagos</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu4" id="btn-tratamiento" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">medical_services</i><span>Tratamientos</span>
                     </a>
 
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false">
+                    <a href="#pageSubmenu5" id="btn-mensajes" data-toggle="collapse" aria-expanded="false">
                         <i class="material-icons">message</i><span>Mensajes</span>
                     </a>
 
@@ -587,6 +587,336 @@
                 </div>
             </div>
 
+
+            <!--Panel para realizar pago-->
+
+            <div id="pnl-pago" class="mt-2 d-none">
+                <div class="row justify-content-center">
+
+                    <!-- Panel Izquierdo: Búsqueda de Recibo y Realizar Pago -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Búsqueda de Recibo y Realizar Pago</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Formulario de Búsqueda de Recibo -->
+                                <form class="mb-4">
+                                    <div class="form-group">
+                                        <label for="numeroRecibo">Número de Recibo (CITA):</label>
+                                        <input type="text" class="form-control" id="numeroRecibo" placeholder="Ingrese el número de recibo">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Buscar Recibo</button>
+                                </form>
+
+                                <!-- Formulario de Pago -->
+                                <form>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="nombreCliente">Nº de cita:</label>
+                                            <input type="text" class="form-control" id="numeroCita" readonly value="#123123123">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="nombreCliente">Tratamiento:</label>
+                                            <input type="text" class="form-control" id="tratamiento" readonly value="Calzas">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nombreCliente">Motivo de la cita:</label>
+                                        <input type="text" class="form-control" id="motivoCita" readonly value="Poner Calzas">
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="montoPagar">Monto a Pagar:</label>
+                                            <input type="text" class="form-control" id="montoPagar" placeholder="Ingrese el monto a pagar">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="tipoPago">Tipo de Pago:</label>
+                                            <select class="form-control" id="tipoPago">
+                                                <option value="1">Efectivo</option>
+                                                <option value="2">Crédito</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción:</label>
+                                        <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese una descripción"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Realizar Pago</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Derecho: Historial de Pagos -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Historial de Pagos</h3>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Fecha de Pago</th>
+                                            <th scope="col">Monto Pagado</th>
+                                            <th scope="col">Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Aquí puedes iterar sobre la lista de pagos del cliente y mostrar cada entrada en la tabla -->
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>2023-11-23</td>
+                                            <td>$50.00</td>
+                                            <td>Pago de factura mensual</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>2023-11-15</td>
+                                            <td>$30.00</td>
+                                            <td>Pago adicional</td>
+                                        </tr>
+                                        <!-- Agrega más filas según sea necesario -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--Finalizar panel de pago-->
+
+            <div id="pnl-tratamiento" class="mt-5 d-none">
+                <div class="card">
+                    <div class="">
+
+                        <!-- Panel con Tabla de Historial de Tratamientos -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="ml-lg-2">Historial de Tratamientos</h2>
+                            </div>
+                            <div class="card-body">
+
+                                <!-- Tabla -->
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha de Tratamiento</th>
+                                            <th>Tipo de Tratamiento</th>
+                                            <th>Progreso</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Fila 1 -->
+                                        <tr>
+
+                                            <td>1</td>
+                                            <td>2023-11-23</td>
+                                            <td>Tratamiento Dental</td>
+                                            <td>80%</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProgreso1">
+                                                    Ver Progreso
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Fila 2 -->
+                                        <tr>
+
+                                            <td>2</td>
+                                            <td>2023-12-10</td>
+                                            <td>Tratamiento de ortodoncia</td>
+                                            <td>60%</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProgreso2">
+                                                    Ver Progreso
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <!-- Fila 3 -->
+                                        <tr>
+                                            <td>3</td>
+                                            <td>2024-01-05</td>
+                                            <td>Ajuste de ortodoncia</td>
+                                            <td>95%</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProgreso3">
+                                                    Ver Progreso
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ventana Modal para el Progreso del Tratamiento 1 -->
+            <div class="modal" id="modalProgreso1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Progreso del Tratamiento</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Detalle del progreso del tratamiento dental:</p>
+                            <ul>
+                                <li>Fecha de última actualizacion: 2023-12-15</li>
+                                <li>Procedimiento realizado: Limpieza y blanqueamiento</li>
+                                <li>Observaciones: Se observa mejora en la salud bucal.</li>
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ventana Modal para el Progreso del Tratamiento 2 -->
+            <div class="modal" id="modalProgreso2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Progreso del Tratamiento</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Detalle del progreso del tratamiento de ortodoncia:</p>
+                            <ul>
+                                <li>Fecha de última actualizacion: 2023-12-15</li>
+                                <li>Procedimiento realizado: Ajuste</li>
+                                <li>Observaciones: Se observa alineación progresiva de la mandíbula.</li>
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ventana Modal para el Progreso del Tratamiento 3 -->
+            <div class="modal" id="modalProgreso3">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Progreso del Tratamiento</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p>Detalle del progreso del ajuste:</p>
+                            <ul>
+                                <li>Fecha de última actualizacion: 2023-12-15</li>
+                                <li>Procedimiento realizado: ajuste</li>
+                                <li>Observaciones: Mejora en la posicion de la mandíbula</li>
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <!--Finalinzando panel de tratamientos-->
+
+
+            <div id="pnl-mensajeria" class="container-fluid mt-5 d-none">
+                <div class="row">
+                    <!-- Lista de Conversaciones -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h5>Usuarios</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Input para buscar nuevo usuario -->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Buscar usuario">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">Buscar</button>
+                                    </div>
+                                </div>
+                                <!-- Boton para agregar usuario -->
+                                <button class="btn btn-success mb-3">Agregar Usuario</button>
+                                <!-- Subpanel de lista de usuarios -->
+                                <div class="card">
+                                    <div class="card-body user-list">
+                                        <!-- Input para buscar usuario en la lista -->
+                                        <input type="text" class="form-control mb-3" placeholder="Buscar usuario">
+                                        <!-- Lista de usuarios -->
+                                        <ul class="list-group">
+
+                                            <li class="active list-group-item">
+                                                <a href="#" id="" class="text-light">
+                                                    José García
+                                                </a>
+                                            </li>
+                                            <li class="list-group-item">Test user</li>
+                                            <li class="list-group-item">test User2</li>
+                                            <!-- Puedes agregar más usuarios aquí -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Área de Chat -->
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                Mensajes - José García
+                            </div>
+                            <div class="card-body" style="height: 300px; overflow-y: auto;">
+                                <!-- Burbujas de mensajes aquí -->
+                                <div class="mb-2">José García: Hola</div>
+                                <div class="mb-2 text-lg-end">Tú: Mensaje de prueba</div>
+                                <!-- Agrega más mensajes según sea necesario -->
+                            </div>
+                            <div class="card-footer">
+                                <!-- Entrada de mensaje -->
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+                                    <button class="btn btn-primary">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
      
         </div>
     </div>
@@ -643,7 +973,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'notificaciones', 'historialClinico'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'notificaciones', 'historialClinico', 'pnl-pago', 'pnl-tratamiento', 'pnl-mensajeria'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -671,8 +1001,15 @@
         $('#btn-historialClinico').click(function () {
             hideAllAndShowOne('historialClinico');
         });
-
-
+        $('#btn-pagos').click(function () {
+            hideAllAndShowOne('pnl-pago');
+        });
+        $('#btn-tratamiento').click(function () {
+            hideAllAndShowOne('pnl-tratamiento');
+        });
+        $('#btn-mensajes').click(function () {
+            hideAllAndShowOne('pnl-mensajeria');
+        });
 
         
     </script>
