@@ -1,0 +1,728 @@
+﻿@using DentalApp.Models.View
+
+@model AdminViewModel
+
+@{
+    Layout = null;
+
+    ViewData["Title"] = "Administrador Dashboard";
+}
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>crud dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!----css3---->
+    <link rel="stylesheet" href="~/css/custom.css">
+
+
+    <!--google fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+    <!--google material icon-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+
+    <div class="wrapper">
+
+
+        <div class="body-overlay"></div>
+
+        <!-------------------------sidebar------------>
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="@Url.Content("~/images/usuario.png")" class="img-fluid" />
+                <span>@Model.Usuario.Nombre</span>
+                <span>@Model.Usuario.Apellidos</span>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#" id="dashboard-btn" class="dashboard">
+                        <i class="material-icons">dashboard</i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#homeSubmenu1" id="GUsuario-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">event</i>Gestionar Usuario
+                    </a>
+                </li>
+
+            @*     <li>
+                    <a href="#pageSubmenu2" id="Historial-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">insert_chart</i><span>Historial Clínico</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#pageSubmenu3" id="Pagos-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">attach_money</i><span>Pagos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#pageSubmenu5" id="Mensajes-btn" data-toggle="collapse" aria-expanded="false">
+                        <i class="material-icons">message</i><span>Mensajes</span>
+                    </a>
+                </li> *@
+
+            </ul>
+
+
+        </nav>
+
+
+
+
+        <!--------page-content---------------->
+
+        <div id="content">
+
+            <!--top--navbar----design--------->
+
+            <div class="top-navbar">
+                <div class="xp-topbar">
+
+                    <!-- Start XP Row -->
+                    <div class="row">
+                        <!-- Start XP Col -->
+                        <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                            <div class="xp-menubar">
+                                <span class="material-icons text-white">
+                                    signal_cellular_alt
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+                        <!-- Start XP Col -->
+                        <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                            <div class="xp-searchbar">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control"
+                                               placeholder="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit"
+                                                    id="button-addon2">
+                                                GO
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+                        <!-- Start XP Col -->
+                        <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                            <div class="xp-profilebar text-right">
+                                <nav class="navbar p-0">
+                                    <ul class="nav navbar-nav flex-row ml-auto">
+                                        <li class="dropdown nav-item active">
+                                            <a href="#" id="btn-notificaciones" class="nav-link" data-toggle="dropdown">
+                                                <span class="material-icons">notifications</span>
+                                                <span class="notification">6</span>
+                                                   
+                                            </a>
+                        
+                                        </li>
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link" href="#" data-toggle="dropdown">
+                                                <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
+                                                <span class="xp-user-live"></span>
+                                            </a>
+                                            <ul class="dropdown-menu small-menu">
+                                                <li>
+                                                    <a href="#" id="editProfileLink">
+                                                        <span class="material-icons">
+                                                            person_outline
+                                                        </span>Profile Settings
+
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a asp-area="" asp-controller="Asistente" asp-action="signOut">
+
+                                                        <span class="material-icons">
+                                                            logout
+                                                        </span>Logout
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+
+                                </nav>
+
+                            </div>
+                        </div>
+                        <!-- End XP Col -->
+
+                    </div>
+                    <!-- End XP Row -->
+
+                </div>
+                <div class="xp-breadcrumbbar text-center">
+                    <h4 class="page-title">Bienvenido @Model.Usuario.Nombre @Model.Usuario.Apellidos</h4>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Booster</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </div>
+
+            </div>
+
+
+            <!------Panel de inicio----->
+
+            <div class="container mt-5 mb-5" id="home-panel">
+                <h2>Próximas citas</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cita de limpieza</h5>
+                                <p class="card-text">Fecha: 15 de octubre de 2022</p>
+                                <p class="card-text">Hora: 10:00 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Cita de revisión</h5>
+                                <p class="card-text">Fecha: 20 de octubre de 2022</p>
+                                <p class="card-text">Hora: 11:30 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!--------main-content------------->
+
+            <div class="main-content d-none" id="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                                        <h2 class="ml-lg-2">Gestión de Citas</h2>
+                                    </div>
+                                    <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+                                        <a href="#addAppointmentModal" class="btn btn-success" data-toggle="modal">
+                                            <i class="material-icons">&#xE147;</i> <span>Solicitar Cita</span>
+                                        </a>
+                                        <a href="#deleteAppointmentModal" class="btn btn-danger" data-toggle="modal">
+                                            <i class="material-icons">&#xE15C;</i> <span>Cancelar Cita</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="custom-checkbox">
+                                                <input type="checkbox" id="selectAll">
+                                                <label for="selectAll"></label>
+                                            </span>
+                                        </th>
+                                        <th>Id</th>
+                                        <th>Fecha de la cita</th>
+                                        <th>Hora de la cita</th>
+                                        <th>Estado</th>
+                                        <th>Motivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  @*   @foreach (var solicitud in Model.SolicitudesCita)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="custom-checkbox">
+                                                    <input type="checkbox" id="checkbox@(solicitud.Id)" name="options[]" value="@(solicitud.Id)">
+                                                    <label for="checkbox@(solicitud.Id)"></label>
+                                                </span>
+                                            </td>
+                                            <td>@solicitud.Id</td>
+                                            <td>@solicitud.Fecha.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@solicitud.Hora</td>
+                                            <td>@solicitud.Estado</td>
+                                            <td>@solicitud.MotivoCita</td>
+
+                                            <td>
+                                                <a href="#requestAppointmentModal" class="edit" data-toggle="modal">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Solicitar">&#xE254;</i>
+                                                </a>
+                                                <a href="#deleteAppointmentModal" class="delete" data-toggle="modal">
+                                                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    } *@
+                                </tbody>
+                            </table>
+                            <!-- Agrega el resto de tu paginación y otros elementos según sea necesario -->
+                            <div class="clearfix">
+                                <div class="hint-text">Mostrando <b>5</b> de <b>25</b> entradas</div>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a href="#">Anterior</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                    <li class="page-item"><a href="#" class="page-link">Siguiente</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Edit Modal HTML -->
+                    <div id="addAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Solicitar Nueva Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input type="datetime-local" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de cita</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Motivo</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-success" value="Solicitar Cita">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit Modal HTML -->
+                    <div id="requestAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Editar Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+                                            <input type="datetime-local" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de cita</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Motivo</label>
+                                            <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-info" value="Guardar Cambios">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Delete Modal HTML -->
+                    <div id="deleteAppointmentModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Cancelar Cita</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de que deseas cancelar esta cita?</p>
+                                        <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                                        <input type="submit" class="btn btn-danger" value="Cancelar Cita">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!---footer---->
+
+
+                </div>
+
+
+            </div>
+
+            <!-- Formulario de edición del perfil -->
+            <div id="edit-profile" class="mt-5 d-none">
+                <h2 class="text-center">Información de perfil</h2>
+
+                <button id="enableEdit" class="ml-2 mb-2 btn btn-secondary">Habilitar Edición</button>
+
+                <form id="editProfileForm" asp-action="ActualizarUsuario" asp-controller="Asistente">
+                    <div class="card card-body mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editFirstName" class="form-label">Nombres:</label>
+                                <input type="text" value="@Model.Usuario.Nombre" class="form-control prof-inputs text-capitalize" id="editFirstName" asp-for="Usuario.Nombre" disabled required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editLastName" class="form-label">Apellidos:</label>
+                                <input type="text" value="@Model.Usuario.Apellidos" class="form-control prof-inputs text-capitalize" id="editLastName" asp-for="Usuario.Apellidos" disabled required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editBirthdate" class="form-label">Fecha de nacimiento:</label>
+                                <input type="date" value="@Model.Usuario.FechaNacimiento" class="form-control prof-inputs" id="editBirthdate" asp-for="Usuario.FechaNacimiento" disabled required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editEmail" class="form-label">Email:</label>
+                                <input type="email" value="@Model.Usuario.Correo" class="form-control prof-inputs" id="editEmail" asp-for="Usuario.Correo" disabled required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="editPhone" class="form-label">Teléfono:</label>
+                                <input type="tel" value="@Model.Usuario.Telefono" class="form-control prof-inputs" id="editPhone" asp-for="Usuario.Telefono" disabled>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="editDNI" class="form-label">Cédula:</label>
+                                <input type="tel" value="@Model.Usuario.Cedula" class="form-control prof-inputs" id="editDNI" asp-for="Usuario.Cedula" disabled>
+                            </div>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button id="saveProfileChanges" class="btn btn-primary prof-inputs" type="submit" name="Save">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+                        <!--Gestion de usuario-->
+
+            <div id="GestionUsuario" class="container mt-4 d-none">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Descripción</h3>
+                        <button type="button" id="AgregarUser-btn" class="btn btn-primary mb-2">Añadir Usuario</button>
+                        <button type="button" class="btn btn-secondary mb-2">Buscar Usuario</button>
+                        <button type="button" class="btn btn-info mb-2">Recuperar Contraseña</button>
+                        <select class="form-select mb-2">
+                            <option selected>Seleccionar tipo de usuario</option>
+                            <option value="1">Tipo 1</option>
+                            <option value="2">Tipo 2</option>
+                            <option value="3">Tipo 3</option>
+                        </select>
+                        <button type="button" class="btn btn-success mb-2">Mostrar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Usuario Listado</h3>
+                        <button type="button" class="btn btn-warning mb-2">Editar</button>
+                        <button type="button" class="btn btn-danger mb-2">Desactivar</button>
+                    </div>
+                </div>
+
+                <!-- Agregar tabla debajo del contenido superior -->
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Apellido</th>
+                                    <th scope="col">Correo</th>
+                                    <!-- Agrega más encabezados de columna según tu necesidad -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Agrega filas con datos de usuarios -->
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                    <!-- Agrega más celdas con datos de usuarios -->
+                                </tr>
+                                <!-- Puedes agregar más filas según sea necesario -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+                        <!--Gestion de usuario FIN-->
+
+      <div id="AgregarUsuario" class="container mt-4  d-none">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Registrar Usuario</h3>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre">
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido">
+            </div>
+            <div class="mb-3">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="fechaNacimiento">
+            </div>
+            <div class="mb-3">
+                <label for="cedula" class="form-label">Cédula</label>
+                <input type="text" class="form-control" id="cedula">
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono">
+            </div>
+            <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+                <input type="text" class="form-control" id="nombreUsuario">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo">
+            </div>
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena">
+            </div>
+            <div class="mb-3">
+                <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                <select class="form-select" id="tipoUsuario">
+                    <!-- Opciones del select -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="especialidad" class="form-label">Especialidad</label>
+                <select class="form-select" id="especialidad">
+                    <!-- Opciones del select -->
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary">Agregar Usuario</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <!----------html code compleate----------->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $(".xp-menubar").on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
+            });
+
+            $(".xp-menubar,.body-overlay").on('click', function () {
+                $('#sidebar,.body-overlay').toggleClass('show-nav');
+            });
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        function hideAllAndShowOne(showId) {
+        var allPanels = ['home-panel','GestionUsuario', 'AgregarUsuario'];
+
+            allPanels.forEach(function (panelId) {
+                $('#' + panelId).addClass('d-none');
+            });
+
+            $('#' + showId).removeClass('d-none');
+        }
+
+
+        $('#editProfileLink').click(function () {
+            hideAllAndShowOne('edit-profile');
+           
+        });
+
+            $('#GUsuario-btn').click(function () {
+            hideAllAndShowOne('GestionUsuario');
+        });
+
+           $('#AgregarUser-btn').click(function () {
+            hideAllAndShowOne('AgregarUsuario');
+        });
+
+        // $('#NuevaCitabtn').click(function () {
+        //     hideAllAndShowOne('AgregarCita');
+        // });
+
+        // $('#Pagos-btn').click(function () {
+        //     hideAllAndShowOne('controlPagos');
+        // });
+
+        // $('#btnRealizarPago').click(function () {
+        //     hideAllAndShowOne('registroPago');
+        // });
+
+        $('#dashboard-btn').click(function () {
+            hideAllAndShowOne('home-panel');
+        });
+
+        // $('#Historial-btn').click(function () {
+        //     hideAllAndShowOne('gestionarHistorial');
+        // });
+
+        // $('#Mensajes-btn').click(function () {
+        //     hideAllAndShowOne('Mensajeria');
+        // });
+
+        // $('#btn-notificaciones').click(function () {
+        //     hideAllAndShowOne('notificaciones');
+        // });
+
+
+    </script>
+
+    <!--Aprobar citas-->
+
+    <script>
+        $(document).ready(function () {
+            $('.aceptarSolicitud').on('click', function (event) {
+
+                var formData = new FormData();
+                formData.append('idsolicitud', $(this).data('solicitud'));
+
+                $.ajax({
+                    url: '/Asistente/AceptarCita',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log('Solicitud aprobada con éxito');
+                        location.reload();
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <!--Rechazar citas-->
+
+    <script>
+        $(document).ready(function () {
+            $('.cancelarSolicitud').on('click', function (event) {
+
+                var formData = new FormData();
+                formData.append('idsolicitud', $(this).data('solicitud'));
+
+                $.ajax({
+                    url: '/Asistente/RechazarCita',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log('Solicitud rechazada con éxito');
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Al hacer clic en el botón para habilitar la edición
+            $('#enableEdit').on('click', function () {
+                // Habilitar todos los campos del formulario
+                $('#editProfileForm input, #editProfileForm select').prop('disabled', false);
+            });
+        });
+    </script>
+
+
+
+</body>
+
+
