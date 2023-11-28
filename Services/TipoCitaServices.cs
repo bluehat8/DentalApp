@@ -19,7 +19,7 @@ namespace DentalApp.Services
                     if (response.IsSuccessStatusCode)
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
-                        var tipocitas = JsonConvert.DeserializeObject<List<TipoCita>>(jsonResponse);
+                        List<TipoCita?>? tipocitas = JsonConvert.DeserializeObject<List<TipoCita?>>(jsonResponse);
 
                         return tipocitas;
                     }

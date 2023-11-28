@@ -21,6 +21,12 @@ namespace DentalApp
             rechazada = 5,
         }
 
+        public enum DentalTipoBusqueda
+        {
+            PorIdUsuario,
+            PorCedula
+        }
+
         public static Usuario? actualuser {  get; set; }
 
         public static string apiUrl = "https://localhost:7247";

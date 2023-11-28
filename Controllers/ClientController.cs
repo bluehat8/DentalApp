@@ -16,6 +16,7 @@ using DentalApp.Services.HistorialClinicoServ;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using static DentalApp.Constants;
 
 namespace DentalApp.Controllers
 {
@@ -56,7 +57,7 @@ namespace DentalApp.Controllers
             List<SolicitudCita>? citasFilter = solicitudCita.Where(x => x.Estado != (Int32)Constants.DentalSolicitudCitaStatus.cancelada).ToList();
             List<Notificaciones?>? notificaciones = await notificacionesServ.ObtenerNotificacionesPorCliente(usuarioactual.Id);
             List<TipoCita?>? tiposcita = await tipocitaServ.ObtenerTiposCitaAsync();
-            HistorialClinico? historialClinico = await historialService.ObtenerHistorialClinico(usuarioactual.Id);
+            HistorialClinico? historialClinico = await historialService.ObtenerHistorialClinico(usuarioactual.Id.ToString(), DentalTipoBusqueda.PorIdUsuario);
 
             int TotalRecords = citasFilter.Count();
 

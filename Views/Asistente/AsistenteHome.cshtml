@@ -47,7 +47,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <img src="@Url.Content("~/images/usuario.png")" class="img-fluid" />
+                <img src="https://drive.google.com/uc?export=view&id=1QmHH-fiqaJJhTBQF4MF1TrzCeD4vRGcl" class="img-fluid" />
                 <span>@Model.Usuario.Nombre</span>
                 <span>@Model.Usuario.Apellidos</span>
             </div>
@@ -144,7 +144,7 @@
 
                                         <li class="nav-item dropdown">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
-                                                <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
+                                                <img src="https://drive.google.com/uc?export=view&id=1QmHH-fiqaJJhTBQF4MF1TrzCeD4vRGcl" style="width:24px; border-radius:50%;" />
                                                 <span class="xp-user-live"></span>
                                             </a>
                                             <ul class="dropdown-menu small-menu">
@@ -513,7 +513,7 @@
                         <!-- Elementos debajo de los botones -->
                         <div class="row">
                             <div class="col">
-                                <button type="button" id="NuevaCitabtn" class="btn btn-primary">Nueva Cita</button>
+                                <button type="button" id="NuevaCitabtn" class="btn btn-primary" data-toggle="modal" data-target="#AgregarCita">Nueva Cita</button>
                                 <button type="button" class="btn btn-secondary">Citas de Paciente Específico</button>
                             </div>
                             <div class="col">
@@ -537,56 +537,146 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Citas aprobadas - Nuevas citas -->
+                <div class="container mt-4">
+                    <h2>Citas aprobadas - Nuevas citas</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="w-auto">ID</th>
+                                <th class="w-auto">Cliente</th>
+                                <th class="w-auto">Fecha</th>
+                                <th class="w-auto">Motivo</th>
+                                <th class="w-auto">Tipo Cita</th>
+                                <th class="w-auto">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>John Doe</td>
+                                <td>2023-11-28 10:00 AM</td>
+                                <td>Examen de rutina</td>
+                                <td>Consulta</td>
+                                <td>Aprobada</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jane Smith</td>
+                                <td>2023-11-29 2:30 PM</td>
+                                <td>Tratamiento dental</td>
+                                <td>Procedimiento</td>
+                                <td>Aprobada</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Michael Johnson</td>
+                                <td>2023-11-30 9:15 AM</td>
+                                <td>Limpieza dental</td>
+                                <td>Consulta</td>
+                                <td>Aprobada</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Sarah Williams</td>
+                                <td>2023-12-01 4:00 PM</td>
+                                <td>Ortodoncia</td>
+                                <td>Procedimiento</td>
+                                <td>Nueva</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- Agregar Cita -->
 
-            <div id="AgregarCita" class="container mt-4 d-none">
-                <h2>Agregar Nueva Cita</h2>
-                <form>
-                    <div class="row">
-                        <div class="col">
-                            <label for="tratamientoSelect" class="form-label">Tratamiento</label>
-                            <select id="tratamientoSelect" class="form-select">
-                                <!-- Opciones de tratamiento -->
-                            </select>
-                            <label for="piezasText" class="form-label mt-3">Número de Piezas Dentales Afectadas</label>
-                            <input type="text" id="piezasText" class="form-control">
-                            <label for="doctorSelect" class="form-label mt-3">Doctor</label>
-                            <select id="doctorSelect" class="form-select">
-                                <!-- Opciones de doctor -->
-                            </select>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <label for="cedulaInput" class="form-label">Cédula</label>
-                                    <input type="text" id="cedulaInput" class="form-control">
+            <div id="AgregarCita" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AgregarCitaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="AgregarCitaLabel">Agregar Nueva Cita</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="form-group">
+                                    <label for="tratamientoSelect" class="form-label">Tratamiento</label>
+                                    <select id="tratamientoSelect" class="form-control prof-inputs">
+                                        
+                                        <option value="1">Tratamiento 1</option>
+                                        <option value="2">Ortodoncia</option>
+
+                                    </select>
                                 </div>
-                                <div class="col-auto align-self-end">
-                                    <button type="button" class="btn btn-primary mt-4">Buscar</button>
+
+                                <div class="form-group">
+                                    <label for="piezasText" class="form-label">Número de Piezas Dentales Afectadas</label>
+                                    <input type="text" id="piezasText" class="form-control">
                                 </div>
-                            </div>
-                            <label for="nombreClienteText" class="form-label mt-3">Nombre del Cliente</label>
-                            <input type="text" id="nombreClienteText" class="form-control">
-                            <label for="fechaSelect" class="form-label mt-3">Fecha</label>
-                            <select id="fechaSelect" class="form-select">
-                                <!-- Opciones de fecha -->
-                            </select>
-                            <input type="text" id="horaInput" class="form-control mt-3" placeholder="Hora">
-                            <label for="asuntoInput" class="form-label mt-3">Asunto</label>
-                            <input type="text" id="asuntoInput" class="form-control">
-                            <label for="estadoSelect" class="form-label mt-3">Estado de la Cita</label>
-                            <select id="estadoSelect" class="form-select">
-                                <!-- Opciones de estado -->
-                            </select>
-                            <label for="montoInput" class="form-label mt-3">Monto Total</label>
-                            <input type="text" id="montoInput" class="form-control">
-                            <div class="mt-4">
-                                <button type="button" class="btn btn-success me-3">Guardar</button>
-                                <button type="button" class="btn btn-danger">Cancelar</button>
-                            </div>
+                                <div class="form-group">
+                                    <label for="doctorSelect" class="form-label">Doctor</label>
+                                    <select id="doctorSelect" class="form-control prof-inputs">
+                                        <option value="1">Roger A.</option>
+                                        <option value="2">Orquidia B.</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Cédula del paciente" id="inputCedula">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" type="button">Filtrar</button>
+                                    </div>
+                                </div>
+
+                                <!-- Fila 2: Nombre del cliente y cédula filtrado (solo texto) -->
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input disabled type="text" class="form-control" value="Nombre del paciente" placeholder="Nombre del paciente" id="inputCedula">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Fecha de inicio</label>
+                                    <input type="datetime-local" class="form-control" id="fechaInicio">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="piezasText" class="form-label">Notas - Asunto</label>
+                                    <input type="text" id="Notas" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                  
+                                    <label for="estadoSelect" class="form-label">Estado de la Cita</label>
+                                    <select id="estadoSelect" class="form-control prof-inputs" >
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="montoInput" class="form-label">Monto Total</label>
+                                    <input type="text" id="montoInput" class="form-control">
+                                </div>
+
+                             
+
+                                <div class="modal-footer">
+                                    <!-- Fila 5: Botón para cancelar y otro para guardar -->
+                                    <button type="button" class="btn btn-primary" onclick="guardarTratamiento()">Crear cita</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
             <div id="controlPagos" class="container mt-4  d-none">
@@ -702,7 +792,7 @@
                         </div>
                         <div class="form-group">
                             <label for="observaciones">Observaciones Generales:</label>
-                            <input type="text" class="form-control" id="observaciones">
+                            <input type="text" class="form-control" id="observaciones-historial">
                         </div>
 
                         <!-- Subtitulo de Deportes -->
@@ -929,7 +1019,7 @@
 
 
         function hideAllAndShowOne(showId) {
-            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'AgregarCita', 'controlPagos', 'registroPago', 'gestionarHistorial', 'Mensajeria', 'notificaciones'];
+            var allPanels = ['main-content', 'home-panel', 'edit-profile', 'GestionarCitas', 'controlPagos', 'registroPago', 'gestionarHistorial', 'Mensajeria', 'notificaciones'];
 
             allPanels.forEach(function (panelId) {
                 $('#' + panelId).addClass('d-none');
@@ -947,9 +1037,9 @@
             hideAllAndShowOne('GestionarCitas');
         });
 
-        $('#NuevaCitabtn').click(function () {
-            hideAllAndShowOne('AgregarCita');
-        });
+        // $('#NuevaCitabtn').click(function () {
+        //     hideAllAndShowOne('AgregarCita');
+        // });
 
         $('#Pagos-btn').click(function () {
             hideAllAndShowOne('controlPagos');

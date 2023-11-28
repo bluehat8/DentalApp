@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Linq;
+using static DentalApp.Constants;
+using DentalApp.Services.HistorialClinicoServ;
 
 namespace DentalApp.Controllers
 {
@@ -247,6 +249,61 @@ namespace DentalApp.Controllers
                     Console.WriteLine("Error al renderizar la vista parcial: " + ex.Message);
                     return string.Empty; // Otra acción para manejar el error según tu necesidad
                 }
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ObtenerHistorialClinico(string identificador)
+        {
+            var usuarioJson = HttpContext.Session.GetString("Usuario");
+
+            HistorialClinicoService historialService = new HistorialClinicoService();
+
+            HistorialClinico ? historialClinico = await historialService.ObtenerHistorialClinico(identificador, DentalTipoBusqueda.PorCedula);
+
+
+            return Json(historialClinico);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CrearModificarHistorialClinico([FromBody] HistorialClinico historialClinicoDto)
+        {
+            try
+            {
+               
+                HistorialClinico historialClinico = new HistorialClinico()
+                {
+                    Paciente = historialClinicoDto.Paciente,
+                    nombrePaciente = historialClinicoDto.nombrePaciente,
+                    Observaciones = historialClinicoDto.Observaciones,
+                    EnfermedadPadre = historialClinicoDto.EnfermedadPadre,
+                    EnfermedadMadre= historialClinicoDto.EnfermedadMadre,
+                    Deporte = historialClinicoDto.Deporte,
+                    MalestarDeporte = historialClinicoDto.MalestarDeporte,
+                    Diabetico = historialClinicoDto.Diabetico,
+                    ProblemaCardiaco = historialClinicoDto.ProblemaCardiaco,
+                    ProblemaRenales = historialClinicoDto.ProblemaRenales,
+                    PresionAlta = historialClinicoDto.PresionAlta,
+                    Epileptico = historialClinicoDto.Epileptico,
+                    Operado = historialClinicoDto.Operado,
+                    DetalleOperacion = historialClinicoDto.DetalleOperacion,
+                    Caries = historialClinicoDto.Caries,
+                    EstadoBucal = historialClinicoDto.EstadoBucal,
+                    OtrasEnfermedades = historialClinicoDto.OtrasEnfermedades,
+                    SangraEncimas = historialClinicoDto.SangraEncimas,
+                    DientesFracturados = historialClinicoDto.DientesFracturados,
+                };
+
+                HistorialClinicoService historialService = new HistorialClinicoService();
+                historialService.CrearModificarHistorialClinico(historialClinico);
+
+
+                return Json(new { Message = "Operación exitosa" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Message = "Error al realizar la operación", Error = ex.Message });
             }
         }
 

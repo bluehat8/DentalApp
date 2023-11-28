@@ -5,6 +5,8 @@
         public int Id { get; set; }
 
         public int Paciente { get; set; }
+        public string? nombrePaciente { get; set; }
+
 
         public string Observaciones { get; set; } = null!;
 

@@ -47,7 +47,7 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <img src="@Url.Content("~/images/usuario.png")" class="img-fluid" />
+                <img src="https://drive.google.com/uc?export=view&id=1QmHH-fiqaJJhTBQF4MF1TrzCeD4vRGcl" class="img-fluid" />
                 <span>@Model.Usuario.Nombre</span>
                 <span>@Model.Usuario.Apellidos</span>
             </div>
@@ -166,7 +166,7 @@
 
                                         <li class="nav-item dropdown">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
-                                                <img src="@Url.Content("~/images/usuario.png")" style="width:24px; border-radius:50%;" />
+                                                <img src="https://drive.google.com/uc?export=view&id=1QmHH-fiqaJJhTBQF4MF1TrzCeD4vRGcl" style="width:24px; border-radius:50%;" />
                                                 <span class="xp-user-live"></span>
                                             </a>
                                             <ul class="dropdown-menu small-menu">
@@ -724,7 +724,7 @@
                             <input type="checkbox" class="form-check-input" id="acompanante">
                             <label class="form-check-label" for="acompanante">Buscar por acompañante</label>
                         </div>
-                        <button class="btn btn-primary mt-3">Filtrar Paciente</button>
+                        <button class="btn btn-primary mt-3" onclick="filtrarPaciente()">Filtrar Paciente</button>
                     </div>
                 </div>
 
@@ -741,7 +741,7 @@
                     </div>
                     <div class="form-group">
                         <label for="observaciones">Observaciones Generales:</label>
-                        <input type="text" class="form-control" id="observaciones">
+                        <input type="text" class="form-control" id="observaciones-historial">
                     </div>
 
                     <!-- Subtitulo de Deportes -->
@@ -821,7 +821,7 @@
 
                     <!-- Botones -->
                     <div class="mt-4">
-                        <button class="btn btn-success">Guardar</button>
+                        <button class="btn btn-success" id="guardarBtn">Guardar</button>
                         <button class="btn btn-secondary">Cancelar</button>
                         <button class="btn btn-danger">Dar de Baja</button>
                     </div>
@@ -859,12 +859,12 @@
 
 
 
-            <div id="pnl-progresotratamiento" class="container-fluid mt-5 d-none">
+            <div id="pnl-progresotratamiento" class="ml-0 container-fluid mt-2 d-none">
                 <div class="row">
                     <!-- Subpanel izquierdo -->
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-dark text-white">
                                 <h4 class="mb-0">Lista de Tratamientos</h4>
                             </div>
                             <div class="card-body overflow-auto">
@@ -873,14 +873,15 @@
                                     <input type="text" class="form-control" placeholder="Cédula del paciente" id="inputCedula">
                                     <div class="input-group-append">
                                         <button class="btn btn-success" type="button">Filtrar</button>
-                                        <button class="btn btn-primary ml-2" type="button">Agregar Tratamiento</button>
+                                        <button class="btn btn-primary ml-2" type="button" data-toggle="modal" data-target="#assignTreatmentModal">Agregar Tratamiento</button>
                                     </div>
                                 </div>
                                 <!-- Tabla de tratamientos -->
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
+                                            <th>Paciente</th>
+                                            <th>Tratamiento</th>
                                             <th>Descripción</th>
                                             <th>Fecha de Inicio</th>
                                             <th>Detalles</th>
@@ -889,12 +890,14 @@
                                     <tbody id="tablaTratamientos">
                                         <!-- Registros de ejemplo -->
                                         <tr>
+                                            <th>Juan Domingo</th>
                                             <td>Tratamiento 1</td>
                                             <td>Descripción 1</td>
                                             <td>01/01/2023</td>
                                             <td><button class="btn btn-info" onclick="verDetalles(this)">Ver Detalles</button></td>
                                         </tr>
                                         <tr>
+                                            <th>Joel Domingo</th>
                                             <td>Tratamiento 2</td>
                                             <td>Descripción 2</td>
                                             <td>02/01/2023</td>
@@ -909,7 +912,7 @@
 
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-dark text-white">
                                 <div class="d-flex justify-content-between">
                                     <h4 class="mb-0">Detalles del Progreso del Tratamiento</h4>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProgressModal">
@@ -922,6 +925,8 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
+                                            <th>Paciente</th>
+                                            <th>Tratamiento</th>
                                             <th>Fecha de Seguimiento</th>
                                             <th>Observaciones</th>
                                             <!-- Agrega más columnas según sea necesario -->
@@ -930,10 +935,14 @@
                                     <tbody id="tablaDetalles">
                                         <!-- Registros de ejemplo -->
                                         <tr>
+                                            <th>Paciente</th>
+                                            <th>Tratamiento</th>
                                             <td>01/02/2023</td>
                                             <td>Observaciones de ejemplo 1</td>
                                         </tr>
                                         <tr>
+                                            <th>Paciente</th>
+                                            <th>Tratamiento</th>
                                             <td>02/02/2023</td>
                                             <td>Observaciones de ejemplo 2</td>
                                         </tr>
@@ -975,6 +984,71 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Modal para asignar tratamientos -->
+                    <div class="modal fade" id="assignTreatmentModal" tabindex="-1" role="dialog" aria-labelledby="assignTreatmentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="assignTreatmentModalLabel">Asignar Tratamiento</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Fila 1: Input para buscar cliente por cédula y botón para filtrar -->
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Cédula del paciente" id="inputCedula">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success" type="button">Filtrar</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Fila 2: Nombre del cliente y cédula filtrado (solo texto) -->
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input disabled type="text" class="form-control" value="Nombre del paciente" placeholder="Nombre del paciente" id="inputCedula">
+                                            <div class="input-group-append">
+                                                <input class="form-control" value="Cédula del paciente">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 3: Nombre del tratamiento (select) y descripción -->
+
+                                    <div class="form-group">
+                                        <label>Nombre del tratamiento</label>
+                                        <select class="form-control" id="nombreTratamiento">
+                                            <option value="tratamiento1">Tratamiento 1</option>
+                                            <option value="tratamiento2">Tratamiento 2</option>
+                                            <!-- Agrega más opciones según sea necesario -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Descripción</label>
+                                        <textarea class="form-control" id="descripcion" rows="3"></textarea>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Fecha de inicio</label>
+                                        <input type="date" class="form-control" id="fechaInicio">
+                                    </div>
+                                   
+
+                              
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- Fila 5: Botón para cancelar y otro para guardar -->
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" onclick="guardarTratamiento()">Guardar Tratamiento</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--END ASIGNAR TRATAMIENTO-->
                 </div>
             </div>
 
@@ -1174,6 +1248,119 @@
         });
     </script>
 
+
+    <!--filtrar historial clinico-->
+
+    <script>
+        function filtrarPaciente() {
+           var identificador = $("#buscar").val();
+
+            $.ajax({
+                url: '/Doctor/ObtenerHistorialClinico',
+                type: 'GET',
+                data: { identificador: identificador },
+                success: function (result) {
+                    if (typeof result === 'string') {
+                        result = JSON.parse(result);
+                    }
+
+                    console.log(result);
+                    console.log(typeof result);
+                    actualizarInterfaz(result)
+
+                },
+                error: function (error) {
+                    console.error('Error al obtener historial clínico:', error);
+                }
+            });
+        }
+
+        function actualizarInterfaz(historialClinico) {
+            $("#nombrePaciente").val(historialClinico.nombrePaciente); // Reemplaza "Test" con el valor correspondiente
+
+            // Observaciones Generales
+            $("#observaciones-historial").val(historialClinico.observaciones);
+
+            // Padres
+            $("#enfermedadesPadre").val(historialClinico.enfermedadPadre);
+            $("#enfermedadesMadre").val(historialClinico.enfermedadMadre);
+
+            // Deportes
+            $("#practicaDeporte").prop('checked', historialClinico.deporte === 1);
+            $("#practicaDeporte").val(historialClinico.paciente);
+            $("#malestarDeporte").prop('checked', historialClinico.malestarDeporte === 1);
+
+          
+
+            // Enfermedades Propias
+            $("#diabetico").prop('checked', historialClinico.diabetico === 1);
+            $("#problemasRenales").prop('checked', historialClinico.problemaRenales === 1);
+            $("#presionAlta").prop('checked', historialClinico.presionAlta === 1);
+            $("#epileptico").prop('checked', historialClinico.epileptico === 1);
+
+            // Otras Enfermedades
+            $("#otrasEnfermedades").val(historialClinico.otrasEnfermedades);
+
+            // Operaciones
+            $("#operaciones").prop('checked', historialClinico.operado === 1);
+            $("#detalleOperacion").val(historialClinico.detalleOperacion);
+
+            // Salud Dental
+            $("#estadoBucal").val(historialClinico.estadoBucal);
+            $("#caries").prop('checked', historialClinico.caries === 1);
+            $("#dientesFracturados").prop('checked', historialClinico.dientesFracturados === "1");
+            $("#sangradoEncias").prop('checked', historialClinico.sangraEncimas === "1");
+
+       
+        }
+
+        </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Utilizar delegación de eventos para el botón
+            $(document).on("click", "#guardarBtn", function () {
+                // Obtener todos los valores del formulario
+                console.log('hola');
+                var formData = {
+                    Paciente: 1,
+                    Observaciones: $("#observaciones-historial").val(),
+                    PracticaDeporte: $("#practicaDeporte").is(":checked") ? 1 : 0,
+                    MalestarDeporte: $("#malestarDeporte").is(":checked") ? 1 : 0,
+                    EnfermedadesPadre: $("#enfermedadesPadre").val(),
+                    EnfermedadesMadre: $("#enfermedadesMadre").val(),
+                    Diabetico: $("#diabetico").is(":checked") ? 1: 0,
+                    ProblemasRenales: $("#problemasRenales").is(":checked") ? 1 : 0,
+                    PresionAlta: $("#presionAlta").is(":checked") ? 1 : 0,
+                    Epileptico: $("#epileptico").is(":checked") ? 1 : 0,
+                    OtrasEnfermedades: $("#otrasEnfermedades").val(),
+                    Operaciones: $("#operaciones").is(":checked") ? 1 : 0,
+                    DetalleOperacion: $("#detalleOperacion").val(),
+                    EstadoBucal: $("#estadoBucal").val(),
+                    Caries: $("#caries").is(":checked") ? 1 : 0,
+                    DientesFracturados: $("#dientesFracturados").is(":checked") ? 1 : 0,
+                    SangraEncimas: $("#sangradoEncias").is(":checked") ? 1 : 0
+                };
+
+                // Enviar solicitud AJAX al servidor
+                $.ajax({
+                    type: "POST",
+                    url: "/Doctor/CrearModificarHistorialClinico",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        // Manejar la respuesta del servidor
+                        console.log(response.Message);
+                    },
+                    error: function (error) {
+                        // Manejar errores
+                        console.log("Error al realizar la operación:", error.responseJSON.Message);
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
